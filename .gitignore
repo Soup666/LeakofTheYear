@@ -1,0 +1,14 @@
+# volumes
+/logs
+/db
+
+/.env.*
+
+# IDE setting
+## PhpStorm
+.idea
+
+symfony/src/.DS_Store
+symfony/vendor
+
+.DS_Store

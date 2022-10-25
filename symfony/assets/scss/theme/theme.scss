@@ -1,0 +1,21 @@
+//
+// Theme
+//
+// Custom variables followed by theme variables followed by Bootstrap variables
+// to ensure cascade of styles.
+//
+
+// Bootstrap functions
+@import "~bootstrap/scss/functions";
+
+// Theme variables
+@import "assets/scss/theme/dashkit/variables";
+
+// Bootstrap core
+@import "~bootstrap/scss/bootstrap";
+
+// Theme core
+@import "assets/scss/theme/dashkit/theme";
+
+// Theme libs
+@import "libs.scss";

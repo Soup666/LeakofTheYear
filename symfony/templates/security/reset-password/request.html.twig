@@ -1,0 +1,56 @@
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+    <!-- Theme CSS -->
+    <link rel="stylesheet" href="{{ asset('assets/css/theme.bundle.css') }}" />
+    <link rel="stylesheet" href="{{ asset('assets/css/libs.bundle.css') }}" />
+
+    <style>body { display: none; }</style>
+
+    <!-- Title -->
+    <title>Reset your password</title>
+</head>
+
+<body class="d-flex align-items-center bg-auth border-top border-top-2 border-primary" style="display: block;" >
+
+<!-- CONTENT
+================================================== -->
+<div class="container-fluid">
+    <div class="row justify-content-center">
+        <div class="col-12 col-md-5 col-lg-6 col-xl-4 px-lg-6 my-5 align-self-center">
+
+            {% for flashError in app.flashes('reset_password_error') %}
+                <div class="alert alert-danger" role="alert">{{ flashError }}</div>
+            {% endfor %}
+
+            <!-- Heading -->
+            <h1 class="display-4 text-center mb-3">
+                Reset your password
+            </h1>
+
+            <p class="text-muted">Enter your email address and we will send you a link to reset your password.</p>
+
+            <!-- Form -->
+
+            {{ form_start(requestForm) }}
+            {{ form_widget(requestForm.email, {'attr' : {'class' : 'form-control', 'placeholder' : 'Enter your email address...'}}) }}
+
+            <button class="btn btn-lg w-100 btn-primary mb-3 mt-3">Send password reset email</button>
+            {{ form_end(requestForm) }}
+
+        </div>
+        <div class="col-12 col-md-7 col-lg-6 col-xl-8 d-none d-lg-block">
+
+            <!-- Image -->
+            <div class="bg-cover h-100 min-vh-100 mt-n1 me-n3" style="background-image: url('{{ asset('assets/images/auth_bg.jpeg') }}')"></div>
+
+        </div>
+    </div> <!-- / .row -->
+</div>
+
+</body>
+
+</html>

@@ -1,0 +1,55 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Users{% endblock %}
+
+{% block body_start %}
+    {{ form_start(form) }}
+{% endblock %}
+
+{% block header_title %}Users{% endblock %}
+{% block header_pretitle %}{% if updating %}Edit{% else %}Add New{% endif %} User{% endblock %}
+
+{% block header_actions %}
+    <a href="{{ path('users') }}" class="btn-light btn me-2">Back</a>
+    {{ form_widget(form.save) }}
+{% endblock %}
+
+{% block main %}
+    <div class="row mb-3">
+        <div class="col-md">
+            {{ form_label(form.firstName) }}
+            {{ form_widget(form.firstName, {'attr' : {'class' : 'form-control'}}) }}
+        </div>
+
+        <div class="col-md">
+            {{ form_label(form.lastName) }}
+            {{ form_widget(form.lastName, {'attr' : {'class' : 'form-control'}}) }}
+        </div>
+    </div>
+
+    <div class="form-group">
+        {{ form_label(form.email) }}
+        {{ form_widget(form.email, {'attr' : {'class' : 'form-control mb-3'}}) }}
+    </div>
+
+    <div class="form-group">
+        {{ form_label(form.username) }}
+        {{ form_widget(form.username, {'attr' : {'class' : 'form-control mb-3'}}) }}
+    </div>
+
+    <div class="form-group">
+        {{ form_label(form.password) }}
+        {{ form_widget(form.password, {'attr' : {'class' : 'form-control'}}) }}
+    </div>
+
+    <div class="form-group">
+        {{ form_label(form.roleOptions, "Roles") }}
+        {{ form_widget(form.roleOptions) }}
+    </div>
+
+    {{ form_row(form._token) }}
+{% endblock %}
+
+{% block body_end %}
+    {{ form_end(form, {render_rest: false}) }}
+{% endblock %}

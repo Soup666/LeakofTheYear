@@ -68,14 +68,6 @@
                             {{ u.name() }}
                         </td>
 
-                        <td class="item-artist">
-                            <span class="text-reset">
-                                {% for r in u.artists %}
-                                    <span class="badge bg-secondary">{{ r.name }}</span>
-                                {% endfor %}
-                            </span>
-                        </td>
-
                         <td class="text-end">
                             <div class="btn-group">
                                 <a href="{{ path('artist_edit', {'id' : u.id}) }}" class="btn btn-sm btn-white" data-bs-toggle="tooltip" data-bs-placement="top" title="Edit user">
