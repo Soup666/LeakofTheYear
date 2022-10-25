@@ -1,0 +1,41 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Users{% endblock %}
+
+{% block body_start %}
+    {{ form_start(form) }}
+{% endblock %}
+
+{% block header_title %}Tapes{% endblock %}
+{% block header_pretitle %}{% if updating %}Edit{% else %}Add New{% endif %} Tape{% endblock %}
+
+{% block header_actions %}
+    <a href="{{ path('tapes') }}" class="btn-light btn me-2">Back</a>
+    {{ form_widget(form.save) }}
+{% endblock %}
+
+{% block main %}
+    <div class="row mb-3">
+        <div class="col-md">
+            {{ form_label(form.name) }}
+            {{ form_widget(form.name, {'attr' : {'class' : 'form-control'}}) }}
+        </div>
+
+        <div class="col-md">
+            {{ form_label(form.releaseYear) }}
+            {{ form_widget(form.releaseYear, {'attr' : {'class' : 'form-control'}}) }}
+        </div>
+
+        <div class="col-md">
+            {{ form_label(form.artist) }}
+            {{ form_widget(form.artist) }}
+        </div>
+    </div>
+
+
+    {{ form_row(form._token) }}
+{% endblock %}
+
+{% block body_end %}
+    {{ form_end(form, {render_rest: false}) }}
+{% endblock %}
