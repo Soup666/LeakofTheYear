@@ -15,10 +15,29 @@
 {% endblock %}
 
 {% block main %}
+    {% if updating %}
+        <div class="row mb-3">
+            <div class="col-4">
+                <img src="{{ cover }}" width="100%" alt="cover">
+            </div>
+            <div class="col-md">
+                <div class="row">
+                    <h1><strong>{{ artist.name }}</strong></h1>
+                </div>
+            </div>
+        </div>
+        <hr>
+    {% endif %}
+
     <div class="row mb-3">
         <div class="col-md">
             {{ form_label(form.name) }}
             {{ form_widget(form.name, {'attr' : {'class' : 'form-control'}}) }}
+        </div>
+
+        <div class="col-md">
+            {{ form_label(form.cover) }}
+            {{ form_widget(form.cover, {'attr' : {'class' : 'form-control'}}) }}
         </div>
 
     </div>
@@ -30,3 +49,4 @@
 {% block body_end %}
     {{ form_end(form, {render_rest: false}) }}
 {% endblock %}
+

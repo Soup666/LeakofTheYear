@@ -30,6 +30,13 @@ class Tape
     #[ORM\Column]
     private ?bool $Archived = null;
 
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $cover = null;
+
+    #[ORM\Column(type: 'text', length: 65535, nullable: true)]
+    private ?string $Description = null;
+
+
     public function __construct()
     {
         $this->Artist = new ArrayCollection();
@@ -108,6 +115,34 @@ class Tape
     public function setArchived(bool $Archived): self
     {
         $this->Archived = $Archived;
+
+        return $this;
+    }
+
+    public function getCover(): ?string
+    {
+        return $this->cover;
+    }
+
+    public function setCover(?string $cover): self
+    {
+        $this->cover = $cover;
+
+        return $this;
+    }
+
+    public function getFullCoverPath() {
+        return '/uploads/covers/' . $this->getCover();
+    }
+
+    public function getDescription(): ?string
+    {
+        return $this->Description;
+    }
+
+    public function setDescription(?string $Description): self
+    {
+        $this->Description = $Description;
 
         return $this;
     }

@@ -7,9 +7,11 @@ use App\Form\ArtistType;
 use Doctrine\Persistence\ManagerRegistry;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\String\Slugger\SluggerInterface;
 
 #[IsGranted("ROLE_USER")]
 #[Route('/admin/artists')]
@@ -30,7 +32,7 @@ class ArtistController extends AbstractController
     #[Route('/add')]
     #[Route('/edit/{id}', name: 'artist_edit')]
     #[IsGranted("ROLE_USER")]
-    public function edit(ManagerRegistry $managerRegistry, Request $request, ?Artist $artist = null): Response
+    public function edit(SluggerInterface $slugger, ManagerRegistry $managerRegistry, Request $request, ?Artist $artist = null): Response
     {
 
         $artist = $artist ?? new Artist();
@@ -46,6 +48,31 @@ class ArtistController extends AbstractController
             $artist->setSuspended(false);
             $artist->setArchived(false);
 
+            $coverFile = $form->get('cover')->getData();
+
+            if ($coverFile) {
+                $originalFilename = pathinfo($coverFile->getClientOriginalName(), PATHINFO_FILENAME);
+                // this is needed to safely include the file name as part of the URL
+                $safeFilename = $slugger->slug($originalFilename);
+                $newFilename = $safeFilename.'-'.uniqid().'.'.$coverFile->guessExtension();
+
+                // Move the file to the directory where brochures are stored
+                try {
+                    $coverFile->move(
+                        $this->getParameter('artists_directory'),
+                        $newFilename
+                    );
+                } catch (FileException $e) {
+                    dd($e);
+                    // ... handle exception if something happens during file upload
+                }
+
+                // updates the 'brochureFilename' property to store the PDF file name
+                // instead of its contents
+                $artist->setCover($newFilename);
+            }
+
+
             $em = $managerRegistry->getManager();
 
             $em->persist($artist);
@@ -58,6 +85,8 @@ class ArtistController extends AbstractController
         return $this->render('artists/backend/add.html.twig', [
             "form" => $form->createView(),
             "updating" => $artist->getId() !== null,
+            'cover' => $artist->getFullCoverPath(),
+            'artist' => $artist,
         ]);
     }
 

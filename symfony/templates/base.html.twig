@@ -11,6 +11,7 @@
 
     {# Theme CSS #}
     {{ encore_entry_link_tags('app') }}
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
 
     {% block head %}{% endblock %}
 </head>
@@ -55,6 +56,8 @@
 
         {% block body_end %}{% endblock %}
     </div>
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 {% endblock %}
 
 {# JavaScript #}

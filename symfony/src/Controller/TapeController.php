@@ -2,14 +2,18 @@
 
 namespace App\Controller;
 
+use App\Entity\File;
 use App\Entity\Tape;
 use App\Form\TapeType;
 use Doctrine\Persistence\ManagerRegistry;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+use Stof\DoctrineExtensionsBundle\Uploadable\UploadableManager;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\String\Slugger\SluggerInterface;
 
 #[IsGranted("ROLE_USER")]
 #[Route('/admin/tapes')]
@@ -30,7 +34,7 @@ class TapeController extends AbstractController
     #[Route('/add')]
     #[Route('/edit/{id}', name: 'tape_edit')]
     #[IsGranted("ROLE_USER")]
-    public function edit(ManagerRegistry $managerRegistry, Request $request, ?Tape $tape = null): Response
+    public function edit(SluggerInterface $slugger, ManagerRegistry $managerRegistry, Request $request, ?Tape $tape = null): Response
     {
 
         $tape = $tape ?? new Tape();
@@ -47,9 +51,35 @@ class TapeController extends AbstractController
             $tape->setSuspended(false);
             $tape->setArchived(false);
 
+            $coverFile = $form->get('cover')->getData();
+
+            if ($coverFile) {
+                $originalFilename = pathinfo($coverFile->getClientOriginalName(), PATHINFO_FILENAME);
+                // this is needed to safely include the file name as part of the URL
+                $safeFilename = $slugger->slug($originalFilename);
+                $newFilename = $safeFilename.'-'.uniqid().'.'.$coverFile->guessExtension();
+
+                // Move the file to the directory where brochures are stored
+                try {
+                    $coverFile->move(
+                        $this->getParameter('covers_directory'),
+                        $newFilename
+                    );
+                } catch (FileException $e) {
+                    dd($e);
+                    // ... handle exception if something happens during file upload
+                }
+
+                // updates the 'brochureFilename' property to store the PDF file name
+                // instead of its contents
+                $tape->setCover($newFilename);
+            }
+
             $em = $managerRegistry->getManager();
 
             $em->persist($tape);
+
+
             $em->flush();
 
             $this->addFlash("success", "Tape updated");
@@ -59,6 +89,8 @@ class TapeController extends AbstractController
         return $this->render('tapes/backend/add.html.twig', [
             "form" => $form->createView(),
             "updating" => $tape->getId() !== null,
+            'tape' => $tape,
+            'cover' => $tape->getFullCoverPath()
         ]);
     }
 

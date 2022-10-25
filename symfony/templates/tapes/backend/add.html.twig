@@ -15,6 +15,25 @@
 {% endblock %}
 
 {% block main %}
+    {% if updating %}
+    <div class="row mb-3">
+        <div class="col-4">
+            <img src="{{ cover }}" width="100%" alt="cover">
+        </div>
+        <div class="col-md">
+            <div class="row">
+                <h1><strong>{{ tape.name }}</strong></h1>
+            </div>
+            <div class="row">
+                {% for a in tape.artist %}
+                <h4><span class="badge bg-secondary">{{ a.name }}</span></h4>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+    <hr>
+    {% endif %}
+
     <div class="row mb-3">
         <div class="col-md">
             {{ form_label(form.name) }}
@@ -26,9 +45,22 @@
             {{ form_widget(form.releaseYear, {'attr' : {'class' : 'form-control'}}) }}
         </div>
 
+
+        <div class="col-md">
+            {{ form_label(form.cover) }}
+            {{ form_widget(form.cover, {'attr' : {'class' : 'form-control'}}) }}
+        </div>
+
         <div class="col-md">
             {{ form_label(form.artist) }}
             {{ form_widget(form.artist) }}
+        </div>
+    </div>
+
+    <div class="row mb-3">
+        <div class="col-md">
+            {{ form_label(form.description) }}
+            {{ form_widget(form.description, {'attr' : {'class' : 'form-control'}}) }}
         </div>
     </div>
 
@@ -38,4 +70,16 @@
 
 {% block body_end %}
     {{ form_end(form, {render_rest: false}) }}
+{% endblock %}
+
+
+{% block scripts %}
+
+    <script>
+        $(document).ready(function() {
+            $('#tape_artist').select2({
+                width: '100%',
+            });
+        });
+    </script>
 {% endblock %}

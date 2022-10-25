@@ -27,6 +27,9 @@ class Artist
     #[ORM\Column]
     private ?bool $Suspended = null;
 
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $cover = null;
+
     public function __construct()
     {
         $this->tapes = new ArrayCollection();
@@ -98,5 +101,21 @@ class Artist
         $this->Archived = $Archived;
 
         return $this;
+    }
+
+    public function getCover(): ?string
+    {
+        return $this->cover;
+    }
+
+    public function setCover(?string $cover): self
+    {
+        $this->cover = $cover;
+
+        return $this;
+    }
+
+    public function getFullCoverPath() {
+        return '/uploads/artists/' . $this->getCover();
     }
 }
