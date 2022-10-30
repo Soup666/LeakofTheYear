@@ -87,6 +87,11 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
             "ROLE_ADMIN" => "Admin"
         ];
     }
+
+    public function isAdmin(): bool {
+        return $this->hasRole('ROLE_ADMIN');
+    }
+
     public function getNamedRoles(): array
     {
         $roles = $this->getRoles();

@@ -52,6 +52,8 @@
                     </a>
 
                     <div class="dropdown-menu" aria-labelledby="sidebarIconCopy">
+                    {% if app.user.isAdmin %}<a href="{{ path("admin") }}" class="dropdown-item">Admin</a>{% endif %}
+
                         <a href="{{ path("users_edit", {'id': app.user.id }) }}" class="dropdown-item">Edit Profile</a>
                         <a href="{{ path("auth_logout") }}" class="dropdown-item">Logout</a>
                     </div>
