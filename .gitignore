@@ -12,3 +12,4 @@ symfony/src/.DS_Store
 symfony/vendor
 
 .DS_Store
+node_modules

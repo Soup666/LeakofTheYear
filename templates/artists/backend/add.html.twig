@@ -1,0 +1,59 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Artist{% endblock %}
+
+{% block body_start %}
+    {{ form_start(form) }}
+{% endblock %}
+
+{% block header_title %}Artist{% endblock %}
+{% block header_pretitle %}{% if updating %}Edit{% else %}Add New{% endif %} Artist{% endblock %}
+
+{% block header_actions %}
+    <a href="{{ path('tapes') }}" class="btn-light btn me-2">Back</a>
+    {{ form_widget(form.save) }}
+{% endblock %}
+
+{% block main %}
+    {% if updating %}
+        <div class="row mb-3">
+            <div class="col-4">
+                <img src="{{ cover }}" style="max-height: 250px; overflow: hidden;" alt="cover">
+            </div>
+            <div class="col-md">
+                <div class="row">
+                    <h1><strong>{{ artist.name }}</strong></h1>
+                </div>
+            </div>
+        </div>
+        <hr>
+    {% endif %}
+
+    <div class="row mb-3">
+        <div class="col-md">
+            {{ form_label(form.name) }}
+            {{ form_widget(form.name, {'attr' : {'class' : 'form-control'}}) }}
+        </div>
+    </div>
+
+    <div class="row mb-3">
+
+
+        <div class="col-md">
+            {{ form_label(form.cover) }}
+            {{ form_widget(form.cover, {'attr' : {'class' : 'form-control'}}) }}
+        </div>
+        <div class="col-md">
+            {{ form_label(form.coverUrl) }}
+            {{ form_widget(form.coverUrl, {'attr' : {'class' : 'form-control'}}) }}
+        </div>
+    </div>
+
+
+    {{ form_row(form._token) }}
+{% endblock %}
+
+{% block body_end %}
+    {{ form_end(form, {render_rest: false}) }}
+{% endblock %}
+
