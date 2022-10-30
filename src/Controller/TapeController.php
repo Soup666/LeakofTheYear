@@ -3,7 +3,9 @@
 namespace App\Controller;
 
 use App\Entity\File;
+use App\Entity\Review;
 use App\Entity\Tape;
+use App\Form\ReviewType;
 use App\Form\TapeType;
 use Doctrine\Persistence\ManagerRegistry;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
@@ -32,10 +34,37 @@ class TapeController extends AbstractController
 
 
     #[Route('/view/{id}', name: 'view_tape')]
-    public function viewTape(Tape $tape): Response
+    public function viewTape(ManagerRegistry $managerRegistry, Tape $tape, Request $request): Response
     {
+
+        $form = $this->createForm(ReviewType::class);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            $review = new Review();
+
+            $review->setTitle('');
+            $review->setScore($form->get('score')->getData());
+            $review->setDescription($form->get('description')->getData());
+
+            $review->setTape($tape);
+            $review->setAuthor($this->getUser());
+
+            $em = $managerRegistry->getManager();
+            $em->persist($review);
+            $em->flush();
+
+        }
+
+        $reviews = $managerRegistry->getRepository(Review::class)->findBy([
+            'Tape' => $tape,
+        ]);
+
         return $this->render('tapes/frontend/view.html.twig', [
+            'form' => $form->createView(),
             "tape" => $tape,
+            "reviews" => $reviews,
         ]);
     }
 

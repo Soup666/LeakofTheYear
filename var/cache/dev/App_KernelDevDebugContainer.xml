@@ -432,6 +432,9 @@
     <service id="App\Form\ResetPasswordRequestFormType" class="App\Form\ResetPasswordRequestFormType" autowire="true" autoconfigure="true">
       <tag name="form.type"/>
     </service>
+    <service id="App\Form\ReviewType" class="App\Form\ReviewType" autowire="true" autoconfigure="true">
+      <tag name="form.type"/>
+    </service>
     <service id="App\Form\TapeType" class="App\Form\TapeType" autowire="true" autoconfigure="true">
       <tag name="form.type"/>
     </service>
@@ -447,6 +450,10 @@
       <argument type="service" id="doctrine"/>
     </service>
     <service id="App\Repository\ResetPasswordRequestRepository" class="App\Repository\ResetPasswordRequestRepository" autowire="true" autoconfigure="true">
+      <tag name="doctrine.repository_service"/>
+      <argument type="service" id="doctrine"/>
+    </service>
+    <service id="App\Repository\ReviewRepository" class="App\Repository\ReviewRepository" autowire="true" autoconfigure="true">
       <tag name="doctrine.repository_service"/>
       <argument type="service" id="doctrine"/>
     </service>
@@ -1128,6 +1135,7 @@
         <argument>App\Form\ArtistType</argument>
         <argument>App\Form\ChangePasswordFormType</argument>
         <argument>App\Form\ResetPasswordRequestFormType</argument>
+        <argument>App\Form\ReviewType</argument>
         <argument>App\Form\TapeType</argument>
         <argument>App\Form\UserType</argument>
         <argument>Symfony\Component\Form\Extension\Core\Type\FormType</argument>
@@ -3186,7 +3194,7 @@
       <argument type="service" id="form.registry"/>
     </service>
     <service id="form.extension" class="Symfony\Component\Form\Extension\DependencyInjection\DependencyInjectionExtension">
-      <argument type="service" id=".service_locator.8jHIM11"/>
+      <argument type="service" id=".service_locator.GnzQ_Dn"/>
       <argument type="collection">
         <argument key="Symfony\Component\Form\Extension\Core\Type\FormType" type="iterator">
           <argument type="service" id="form.type_extension.form.transformation_failure_handling"/>
@@ -4681,7 +4689,7 @@
       <factory class="Doctrine\ORM\EntityManager" method="create"/>
     </service>
     <service id="doctrine.orm.container_repository_factory" class="Doctrine\Bundle\DoctrineBundle\Repository\ContainerRepositoryFactory">
-      <argument type="service" id=".service_locator.3EbpDws"/>
+      <argument type="service" id=".service_locator.f3AxiwO"/>
     </service>
     <service id="doctrine.orm.manager_configurator.abstract" class="Doctrine\Bundle\DoctrineBundle\ManagerConfigurator" abstract="true">
       <argument type="collection"/>
@@ -6015,6 +6023,8 @@
     <service id=".abstract.instanceof.App\Form\ChangePasswordFormType" class="App\Form\ChangePasswordFormType" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.Symfony\Component\Form\FormTypeInterface.0.App\Form\ResetPasswordRequestFormType" class="App\Form\ResetPasswordRequestFormType" autowire="true" abstract="true"/>
     <service id=".abstract.instanceof.App\Form\ResetPasswordRequestFormType" class="App\Form\ResetPasswordRequestFormType" autowire="true" autoconfigure="true" abstract="true"/>
+    <service id=".instanceof.Symfony\Component\Form\FormTypeInterface.0.App\Form\ReviewType" class="App\Form\ReviewType" autowire="true" abstract="true"/>
+    <service id=".abstract.instanceof.App\Form\ReviewType" class="App\Form\ReviewType" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.Symfony\Component\Form\FormTypeInterface.0.App\Form\TapeType" class="App\Form\TapeType" autowire="true" abstract="true"/>
     <service id=".abstract.instanceof.App\Form\TapeType" class="App\Form\TapeType" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.Symfony\Component\Form\FormTypeInterface.0.App\Form\UserType" class="App\Form\UserType" autowire="true" abstract="true"/>
@@ -6025,6 +6035,8 @@
     <service id=".abstract.instanceof.App\Repository\FileRepository" class="App\Repository\FileRepository" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepositoryInterface.0.App\Repository\ResetPasswordRequestRepository" class="App\Repository\ResetPasswordRequestRepository" autowire="true" abstract="true"/>
     <service id=".abstract.instanceof.App\Repository\ResetPasswordRequestRepository" class="App\Repository\ResetPasswordRequestRepository" autowire="true" autoconfigure="true" abstract="true"/>
+    <service id=".instanceof.Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepositoryInterface.0.App\Repository\ReviewRepository" class="App\Repository\ReviewRepository" autowire="true" abstract="true"/>
+    <service id=".abstract.instanceof.App\Repository\ReviewRepository" class="App\Repository\ReviewRepository" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepositoryInterface.0.App\Repository\TapeRepository" class="App\Repository\TapeRepository" autowire="true" abstract="true"/>
     <service id=".abstract.instanceof.App\Repository\TapeRepository" class="App\Repository\TapeRepository" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepositoryInterface.0.App\Repository\UserRepository" class="App\Repository\UserRepository" autowire="true" abstract="true"/>
@@ -6421,10 +6433,11 @@
         <argument key="userPasswordHasher" type="service_closure" id="security.user_password_hasher"/>
       </argument>
     </service>
-    <service id=".service_locator.fLDn9bG" class="Symfony\Component\DependencyInjection\ServiceLocator">
+    <service id=".service_locator.4516oZ1" class="Symfony\Component\DependencyInjection\ServiceLocator">
       <tag name="container.service_locator"/>
       <argument type="collection">
-        <argument key="tape" type="service_closure" id=".errored..service_locator.fLDn9bG.App\Entity\Tape"/>
+        <argument key="managerRegistry" type="service_closure" id="doctrine"/>
+        <argument key="tape" type="service_closure" id=".errored..service_locator.4516oZ1.App\Entity\Tape"/>
       </argument>
     </service>
     <service id=".service_locator.VCZBFgr" class="Symfony\Component\DependencyInjection\ServiceLocator">
@@ -6432,13 +6445,6 @@
       <argument type="collection">
         <argument key="managerRegistry" type="service_closure" id="doctrine"/>
         <argument key="slugger" type="service_closure" id="slugger"/>
-      </argument>
-    </service>
-    <service id=".service_locator.4516oZ1" class="Symfony\Component\DependencyInjection\ServiceLocator">
-      <tag name="container.service_locator"/>
-      <argument type="collection">
-        <argument key="managerRegistry" type="service_closure" id="doctrine"/>
-        <argument key="tape" type="service_closure" id=".errored..service_locator.4516oZ1.App\Entity\Tape"/>
       </argument>
     </service>
     <service id=".service_locator.08uX.sD" class="Symfony\Component\DependencyInjection\ServiceLocator">
@@ -6455,7 +6461,7 @@
         <argument key="user" type="service_closure" id=".errored..service_locator.DliG0z3.App\Entity\User"/>
       </argument>
     </service>
-    <service id=".service_locator.6bm512i" class="Symfony\Component\DependencyInjection\ServiceLocator">
+    <service id=".service_locator.XCUD1CW" class="Symfony\Component\DependencyInjection\ServiceLocator">
       <tag name="container.service_locator"/>
       <argument type="collection">
         <argument key="App\Controller\ArtistController::archive" type="service_closure" id=".service_locator.eiWvEfv"/>
@@ -6475,7 +6481,7 @@
         <argument key="App\Controller\TapeController::restore" type="service_closure" id=".service_locator.4516oZ1"/>
         <argument key="App\Controller\TapeController::suspend" type="service_closure" id=".service_locator.4516oZ1"/>
         <argument key="App\Controller\TapeController::unsuspend" type="service_closure" id=".service_locator.4516oZ1"/>
-        <argument key="App\Controller\TapeController::viewTape" type="service_closure" id=".service_locator.fLDn9bG"/>
+        <argument key="App\Controller\TapeController::viewTape" type="service_closure" id=".service_locator.4516oZ1"/>
         <argument key="App\Controller\UsersController::archive" type="service_closure" id=".service_locator.DliG0z3"/>
         <argument key="App\Controller\UsersController::edit" type="service_closure" id=".service_locator.08uX.sD"/>
         <argument key="App\Controller\UsersController::index" type="service_closure" id=".service_locator.cg5DUby"/>
@@ -6505,7 +6511,7 @@
         <argument key="App\Controller\TapeController:restore" type="service_closure" id=".service_locator.4516oZ1"/>
         <argument key="App\Controller\TapeController:suspend" type="service_closure" id=".service_locator.4516oZ1"/>
         <argument key="App\Controller\TapeController:unsuspend" type="service_closure" id=".service_locator.4516oZ1"/>
-        <argument key="App\Controller\TapeController:viewTape" type="service_closure" id=".service_locator.fLDn9bG"/>
+        <argument key="App\Controller\TapeController:viewTape" type="service_closure" id=".service_locator.4516oZ1"/>
         <argument key="App\Controller\UsersController:archive" type="service_closure" id=".service_locator.DliG0z3"/>
         <argument key="App\Controller\UsersController:edit" type="service_closure" id=".service_locator.08uX.sD"/>
         <argument key="App\Controller\UsersController:index" type="service_closure" id=".service_locator.cg5DUby"/>
@@ -6586,12 +6592,13 @@
       <argument type="service" id="debug.argument_resolver.not_tagged_controller.inner"/>
       <argument type="service" id="debug.stopwatch"/>
     </service>
-    <service id=".service_locator.8jHIM11" class="Symfony\Component\DependencyInjection\ServiceLocator">
+    <service id=".service_locator.GnzQ_Dn" class="Symfony\Component\DependencyInjection\ServiceLocator">
       <tag name="container.service_locator"/>
       <argument type="collection">
         <argument key="App\Form\ArtistType" type="service_closure" id="App\Form\ArtistType"/>
         <argument key="App\Form\ChangePasswordFormType" type="service_closure" id="App\Form\ChangePasswordFormType"/>
         <argument key="App\Form\ResetPasswordRequestFormType" type="service_closure" id="App\Form\ResetPasswordRequestFormType"/>
+        <argument key="App\Form\ReviewType" type="service_closure" id="App\Form\ReviewType"/>
         <argument key="App\Form\TapeType" type="service_closure" id="App\Form\TapeType"/>
         <argument key="App\Form\UserType" type="service_closure" id="App\Form\UserType"/>
         <argument key="Symfony\Bridge\Doctrine\Form\Type\EntityType" type="service_closure" id="form.type.entity"/>
@@ -6778,12 +6785,13 @@
         <argument key="stof_doctrine_extensions.listener.uploadable" type="service_closure" id="stof_doctrine_extensions.listener.uploadable"/>
       </argument>
     </service>
-    <service id=".service_locator.3EbpDws" class="Symfony\Component\DependencyInjection\ServiceLocator">
+    <service id=".service_locator.f3AxiwO" class="Symfony\Component\DependencyInjection\ServiceLocator">
       <tag name="container.service_locator"/>
       <argument type="collection">
         <argument key="App\Repository\ArtistRepository" type="service_closure" id="App\Repository\ArtistRepository"/>
         <argument key="App\Repository\FileRepository" type="service_closure" id="App\Repository\FileRepository"/>
         <argument key="App\Repository\ResetPasswordRequestRepository" type="service_closure" id="App\Repository\ResetPasswordRequestRepository"/>
+        <argument key="App\Repository\ReviewRepository" type="service_closure" id="App\Repository\ReviewRepository"/>
         <argument key="App\Repository\TapeRepository" type="service_closure" id="App\Repository\TapeRepository"/>
         <argument key="App\Repository\UserRepository" type="service_closure" id="App\Repository\UserRepository"/>
       </argument>
@@ -7086,12 +7094,12 @@
       <argument type="service" id="security.token_storage"/>
     </service>
     <service id="debug.argument_resolver.service.inner" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\ServiceValueResolver">
-      <argument type="service" id=".service_locator.6bm512i"/>
+      <argument type="service" id=".service_locator.XCUD1CW"/>
     </service>
     <service id="debug.argument_resolver.default.inner" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\DefaultValueResolver"/>
     <service id="debug.argument_resolver.variadic.inner" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\VariadicValueResolver"/>
     <service id="debug.argument_resolver.not_tagged_controller.inner" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\NotTaggedControllerValueResolver">
-      <argument type="service" id=".service_locator.6bm512i"/>
+      <argument type="service" id=".service_locator.XCUD1CW"/>
     </service>
     <service id=".debug.http_client.inner" class="Symfony\Contracts\HttpClient\HttpClientInterface">
       <argument type="collection"/>
@@ -7110,7 +7118,6 @@
     <service id=".errored..service_locator.bRdave9.Symfony\Component\HttpFoundation\Response" class="Symfony\Component\HttpFoundation\Response"/>
     <service id=".errored..service_locator.xUrKPVU.Symfony\Component\Config\Loader\LoaderInterface" class="Symfony\Component\Config\Loader\LoaderInterface"/>
     <service id=".errored..service_locator.eiWvEfv.App\Entity\Artist" class="App\Entity\Artist"/>
-    <service id=".errored..service_locator.fLDn9bG.App\Entity\Tape" class="App\Entity\Tape"/>
     <service id=".errored..service_locator.4516oZ1.App\Entity\Tape" class="App\Entity\Tape"/>
     <service id=".errored..service_locator.DliG0z3.App\Entity\User" class="App\Entity\User"/>
     <service id=".console.command.about.lazy" class="Symfony\Component\Console\Command\LazyCommand">
@@ -7962,7 +7969,7 @@
     <service id="Stof\DoctrineExtensionsBundle\Uploadable\UploadableManager" alias="stof_doctrine_extensions.uploadable.manager"/>
     <service id="container.env_var_processors_locator" alias=".service_locator.gSv9zYw" public="true"/>
     <service id="twig.loader.filesystem" alias="twig.loader.native_filesystem"/>
-    <service id="argument_resolver.controller_locator" alias=".service_locator.6bm512i"/>
+    <service id="argument_resolver.controller_locator" alias=".service_locator.XCUD1CW"/>
     <service id="twig.loader" alias="twig.loader.native_filesystem"/>
     <service id="Psr\Log\LoggerInterface $requestLogger" alias="monolog.logger.request"/>
     <service id="Psr\Log\LoggerInterface $consoleLogger" alias="monolog.logger.console"/>
@@ -7983,9 +7990,9 @@
     <service id=".service_locator.5nqtgbE" alias=".service_locator.eKUB4uF"/>
     <service id=".service_locator.0B6QDxm" alias=".service_locator.eiWvEfv"/>
     <service id=".service_locator.cD1HEFt" alias=".service_locator.VCZBFgr"/>
-    <service id=".service_locator.eUyMdMy" alias=".service_locator.6bm512i"/>
+    <service id=".service_locator.CS0MjPO" alias=".service_locator.XCUD1CW"/>
     <service id=".service_locator.wKF4yn1" alias=".service_locator.19_mNxd"/>
-    <service id=".service_locator.mkN0Maq" alias=".service_locator.8jHIM11"/>
+    <service id=".service_locator.Sjgy2MV" alias=".service_locator.GnzQ_Dn"/>
     <service id=".service_locator.985LqEy" alias=".service_locator.pWBC4xF"/>
     <service id=".service_locator.O24_MAy" alias=".service_locator.yY.p4P7"/>
     <service id=".service_locator._eRAkJb" alias=".service_locator.jIxfAsi"/>
@@ -8021,9 +8028,8 @@
     <service id=".service_locator.91toihm" alias=".service_locator.ia1UUdO"/>
     <service id=".service_locator.k3yKEdo" alias=".service_locator.6E9xidT"/>
     <service id=".service_locator.DUsslVm" alias=".service_locator.qwilqiL"/>
-    <service id=".service_locator.N_OwVLp" alias=".service_locator.fLDn9bG"/>
-    <service id=".service_locator.DWU1Ays" alias=".service_locator.VCZBFgr"/>
     <service id=".service_locator.BWNuXKJ" alias=".service_locator.4516oZ1"/>
+    <service id=".service_locator.DWU1Ays" alias=".service_locator.VCZBFgr"/>
     <service id=".service_locator._TIT0LT" alias=".service_locator.08uX.sD"/>
     <service id=".service_locator.50HY9K9" alias=".service_locator.DliG0z3"/>
     <service id=".service_locator.eAaUVIw" alias=".service_locator.jIxfAsi"/>

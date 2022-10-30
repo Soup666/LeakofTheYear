@@ -186,47 +186,119 @@ class __TwigTemplate_9484840d083d92ed1a33f1cfa426354b extends Template
 
         <hr>
 
+        ";
+        // line 78
+        echo         $this->env->getRuntime('Symfony\Component\Form\FormRenderer')->renderBlock((isset($context["form"]) || array_key_exists("form", $context) ? $context["form"] : (function () { throw new RuntimeError('Variable "form" does not exist.', 78, $this->source); })()), 'form_start');
+        echo "
         <div class=\"row\">
             <div class=\"card\">
                 <div class=\"card-body\">
                     <div class=\"row\">
                         <div class=\"col-auto\">
                             <div class=\"rounded-circle bg-secondary p-3 d-flex justify-content-center align-items-center\" style=\"width: 50px; height: 50px\"><span class=\"text-white\"><strong>";
-        // line 83
-        echo twig_escape_filter($this->env, twig_get_attribute($this->env, $this->source, twig_get_attribute($this->env, $this->source, (isset($context["app"]) || array_key_exists("app", $context) ? $context["app"] : (function () { throw new RuntimeError('Variable "app" does not exist.', 83, $this->source); })()), "user", [], "any", false, false, false, 83), "getInitials", [], "any", false, false, false, 83), "html", null, true);
+        // line 84
+        echo twig_escape_filter($this->env, twig_get_attribute($this->env, $this->source, twig_get_attribute($this->env, $this->source, (isset($context["app"]) || array_key_exists("app", $context) ? $context["app"] : (function () { throw new RuntimeError('Variable "app" does not exist.', 84, $this->source); })()), "user", [], "any", false, false, false, 84), "getInitials", [], "any", false, false, false, 84), "html", null, true);
         echo "</strong></span></div>
                         </div>
                         <div class=\"col-2\">
                             <div class=\"row\">
                                 <div class=\"col\">
                                     ";
-        // line 88
-        echo twig_escape_filter($this->env, twig_get_attribute($this->env, $this->source, twig_get_attribute($this->env, $this->source, (isset($context["app"]) || array_key_exists("app", $context) ? $context["app"] : (function () { throw new RuntimeError('Variable "app" does not exist.', 88, $this->source); })()), "user", [], "any", false, false, false, 88), "getFullName", [], "any", false, false, false, 88), "html", null, true);
+        // line 89
+        echo twig_escape_filter($this->env, twig_get_attribute($this->env, $this->source, twig_get_attribute($this->env, $this->source, (isset($context["app"]) || array_key_exists("app", $context) ? $context["app"] : (function () { throw new RuntimeError('Variable "app" does not exist.', 89, $this->source); })()), "user", [], "any", false, false, false, 89), "getFullName", [], "any", false, false, false, 89), "html", null, true);
         echo "
                                 </div>
                             </div>
                             <div class=\"row\">
                                 <div class=\"col\">
-                                    <input type=\"text\" class=\"form-control form-control-sm\" placeholder=\"0-100\">
+                                    ";
+        // line 94
+        echo $this->env->getRuntime('Symfony\Component\Form\FormRenderer')->searchAndRenderBlock(twig_get_attribute($this->env, $this->source, (isset($context["form"]) || array_key_exists("form", $context) ? $context["form"] : (function () { throw new RuntimeError('Variable "form" does not exist.', 94, $this->source); })()), "score", [], "any", false, false, false, 94), 'widget');
+        echo "
                                 </div>
                             </div>
                         </div>
                     </div>
 
                     <div class=\"row mt-2\">
-                        <textarea name=\"rev_desc\" id=\"rev_desc1\" cols=\"30\" rows=\"5\" class=\"form-control\" placeholder=\"Add a review...\"></textarea>
+                        ";
+        // line 101
+        echo $this->env->getRuntime('Symfony\Component\Form\FormRenderer')->searchAndRenderBlock(twig_get_attribute($this->env, $this->source, (isset($context["form"]) || array_key_exists("form", $context) ? $context["form"] : (function () { throw new RuntimeError('Variable "form" does not exist.', 101, $this->source); })()), "description", [], "any", false, false, false, 101), 'widget');
+        echo "
                     </div>
 
                     <div class=\"row mt-2\">
                         <div class=\"col\"></div>
                         <div class=\"col-auto\">
-                            <button class=\"btn btn-primary btn-sm\">Post</button>
+                            ";
+        // line 107
+        echo $this->env->getRuntime('Symfony\Component\Form\FormRenderer')->searchAndRenderBlock(twig_get_attribute($this->env, $this->source, (isset($context["form"]) || array_key_exists("form", $context) ? $context["form"] : (function () { throw new RuntimeError('Variable "form" does not exist.', 107, $this->source); })()), "post", [], "any", false, false, false, 107), 'widget');
+        echo "
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+        ";
+        // line 113
+        echo         $this->env->getRuntime('Symfony\Component\Form\FormRenderer')->renderBlock((isset($context["form"]) || array_key_exists("form", $context) ? $context["form"] : (function () { throw new RuntimeError('Variable "form" does not exist.', 113, $this->source); })()), 'form_end');
+        echo "
 
+
+        ";
+        // line 116
+        $context['_parent'] = $context;
+        $context['_seq'] = twig_ensure_traversable((isset($context["reviews"]) || array_key_exists("reviews", $context) ? $context["reviews"] : (function () { throw new RuntimeError('Variable "reviews" does not exist.', 116, $this->source); })()));
+        foreach ($context['_seq'] as $context["_key"] => $context["r"]) {
+            // line 117
+            echo "        <div class=\"row\">
+            <div class=\"card\">
+                <div class=\"card-header\">
+                    <div class=\"card-title\">
+                        <div class=\"row\">
+                            <div class=\"col-auto\">
+                                <div class=\"rounded-circle bg-secondary p-3 d-flex justify-content-center align-items-center\" style=\"width: 50px; height: 50px\"><span class=\"text-white\"><strong>";
+            // line 123
+            echo twig_escape_filter($this->env, twig_get_attribute($this->env, $this->source, twig_get_attribute($this->env, $this->source, $context["r"], "author", [], "any", false, false, false, 123), "getInitials", [], "any", false, false, false, 123), "html", null, true);
+            echo "</strong></span></div>
+                            </div>
+                            <div class=\"col-2\">
+                                <div class=\"row\">
+                                    <div class=\"col\">
+                                        ";
+            // line 128
+            echo twig_escape_filter($this->env, twig_get_attribute($this->env, $this->source, twig_get_attribute($this->env, $this->source, $context["r"], "author", [], "any", false, false, false, 128), "getFullName", [], "any", false, false, false, 128), "html", null, true);
+            echo "
+                                    </div>
+                                </div>
+                                <div class=\"row\">
+                                    <div class=\"col\">
+                                        <span class=\"badge bg-success\"><strong>";
+            // line 133
+            echo twig_escape_filter($this->env, twig_get_attribute($this->env, $this->source, $context["r"], "score", [], "any", false, false, false, 133), "html", null, true);
+            echo "</strong></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class=\"card-body\">
+                    ";
+            // line 141
+            echo twig_escape_filter($this->env, twig_get_attribute($this->env, $this->source, $context["r"], "description", [], "any", false, false, false, 141), "html", null, true);
+            echo "
+                </div>
+            </div>
+            
+        </div>
+        ";
+        }
+        $_parent = $context['_parent'];
+        unset($context['_seq'], $context['_iterated'], $context['_key'], $context['r'], $context['_parent'], $context['loop']);
+        $context = array_intersect_key($context, $_parent) + $_parent;
+        // line 147
+        echo "
     </div>
     <div class=\"col-3\"></div>
 </div>
@@ -251,7 +323,7 @@ class __TwigTemplate_9484840d083d92ed1a33f1cfa426354b extends Template
 
     public function getDebugInfo()
     {
-        return array (  204 => 88,  196 => 83,  178 => 68,  147 => 40,  138 => 34,  131 => 30,  107 => 8,  97 => 7,  79 => 5,  60 => 3,  37 => 1,);
+        return array (  301 => 147,  289 => 141,  278 => 133,  270 => 128,  262 => 123,  254 => 117,  250 => 116,  244 => 113,  235 => 107,  226 => 101,  216 => 94,  208 => 89,  200 => 84,  191 => 78,  178 => 68,  147 => 40,  138 => 34,  131 => 30,  107 => 8,  97 => 7,  79 => 5,  60 => 3,  37 => 1,);
     }
 
     public function getSourceContext()
@@ -333,6 +405,7 @@ class __TwigTemplate_9484840d083d92ed1a33f1cfa426354b extends Template
 
         <hr>
 
+        {{ form_start(form) }}
         <div class=\"row\">
             <div class=\"card\">
                 <div class=\"card-body\">
@@ -348,25 +421,59 @@ class __TwigTemplate_9484840d083d92ed1a33f1cfa426354b extends Template
                             </div>
                             <div class=\"row\">
                                 <div class=\"col\">
-                                    <input type=\"text\" class=\"form-control form-control-sm\" placeholder=\"0-100\">
+                                    {{ form_widget(form.score) }}
                                 </div>
                             </div>
                         </div>
                     </div>
 
                     <div class=\"row mt-2\">
-                        <textarea name=\"rev_desc\" id=\"rev_desc1\" cols=\"30\" rows=\"5\" class=\"form-control\" placeholder=\"Add a review...\"></textarea>
+                        {{ form_widget(form.description) }}
                     </div>
 
                     <div class=\"row mt-2\">
                         <div class=\"col\"></div>
                         <div class=\"col-auto\">
-                            <button class=\"btn btn-primary btn-sm\">Post</button>
+                            {{ form_widget(form.post) }}
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+        {{ form_end(form) }}
+
+
+        {% for r in reviews %}
+        <div class=\"row\">
+            <div class=\"card\">
+                <div class=\"card-header\">
+                    <div class=\"card-title\">
+                        <div class=\"row\">
+                            <div class=\"col-auto\">
+                                <div class=\"rounded-circle bg-secondary p-3 d-flex justify-content-center align-items-center\" style=\"width: 50px; height: 50px\"><span class=\"text-white\"><strong>{{ r.author.getInitials }}</strong></span></div>
+                            </div>
+                            <div class=\"col-2\">
+                                <div class=\"row\">
+                                    <div class=\"col\">
+                                        {{ r.author.getFullName }}
+                                    </div>
+                                </div>
+                                <div class=\"row\">
+                                    <div class=\"col\">
+                                        <span class=\"badge bg-success\"><strong>{{ r.score }}</strong></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class=\"card-body\">
+                    {{ r.description }}
+                </div>
+            </div>
+            
+        </div>
+        {% endfor %}
 
     </div>
     <div class=\"col-3\"></div>

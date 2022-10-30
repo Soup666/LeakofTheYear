@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\UserRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -39,6 +41,18 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     #[ORM\Column(type: 'boolean')]
     private $suspended = false;
+
+    #[ORM\OneToMany(mappedBy: 'author', targetEntity: Tape::class)]
+    private Collection $tapes;
+
+    #[ORM\OneToMany(mappedBy: 'author', targetEntity: Review::class)]
+    private Collection $reviews;
+
+    public function __construct()
+    {
+        $this->tapes = new ArrayCollection();
+        $this->reviews = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -212,6 +226,66 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setSuspended(bool $suspended): self
     {
         $this->suspended = $suspended;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Tape>
+     */
+    public function getTapes(): Collection
+    {
+        return $this->tapes;
+    }
+
+    public function addTape(Tape $tape): self
+    {
+        if (!$this->tapes->contains($tape)) {
+            $this->tapes->add($tape);
+            $tape->setAuthor($this);
+        }
+
+        return $this;
+    }
+
+    public function removeTape(Tape $tape): self
+    {
+        if ($this->tapes->removeElement($tape)) {
+            // set the owning side to null (unless already changed)
+            if ($tape->getAuthor() === $this) {
+                $tape->setAuthor(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Review>
+     */
+    public function getReviews(): Collection
+    {
+        return $this->reviews;
+    }
+
+    public function addReview(Review $review): self
+    {
+        if (!$this->reviews->contains($review)) {
+            $this->reviews->add($review);
+            $review->setAuthor($this);
+        }
+
+        return $this;
+    }
+
+    public function removeReview(Review $review): self
+    {
+        if ($this->reviews->removeElement($review)) {
+            // set the owning side to null (unless already changed)
+            if ($review->getAuthor() === $this) {
+                $review->setAuthor(null);
+            }
+        }
 
         return $this;
     }

@@ -75,6 +75,7 @@
 
         <hr>
 
+        {{ form_start(form) }}
         <div class="row">
             <div class="card">
                 <div class="card-body">
@@ -90,25 +91,59 @@
                             </div>
                             <div class="row">
                                 <div class="col">
-                                    <input type="text" class="form-control form-control-sm" placeholder="0-100">
+                                    {{ form_widget(form.score) }}
                                 </div>
                             </div>
                         </div>
                     </div>
 
                     <div class="row mt-2">
-                        <textarea name="rev_desc" id="rev_desc1" cols="30" rows="5" class="form-control" placeholder="Add a review..."></textarea>
+                        {{ form_widget(form.description) }}
                     </div>
 
                     <div class="row mt-2">
                         <div class="col"></div>
                         <div class="col-auto">
-                            <button class="btn btn-primary btn-sm">Post</button>
+                            {{ form_widget(form.post) }}
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+        {{ form_end(form) }}
+
+
+        {% for r in reviews %}
+        <div class="row">
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-title">
+                        <div class="row">
+                            <div class="col-auto">
+                                <div class="rounded-circle bg-secondary p-3 d-flex justify-content-center align-items-center" style="width: 50px; height: 50px"><span class="text-white"><strong>{{ r.author.getInitials }}</strong></span></div>
+                            </div>
+                            <div class="col-2">
+                                <div class="row">
+                                    <div class="col">
+                                        {{ r.author.getFullName }}
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col">
+                                        <span class="badge bg-success"><strong>{{ r.score }}</strong></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body">
+                    {{ r.description }}
+                </div>
+            </div>
+            
+        </div>
+        {% endfor %}
 
     </div>
     <div class="col-3"></div>

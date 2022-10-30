@@ -36,10 +36,17 @@ class Tape
     #[ORM\Column(type: 'text', length: 65535, nullable: true)]
     private ?string $Description = null;
 
+    #[ORM\ManyToOne(inversedBy: 'tapes')]
+    private ?User $author = null;
+
+    #[ORM\OneToMany(mappedBy: 'Tape', targetEntity: Review::class)]
+    private Collection $reviews;
+
 
     public function __construct()
     {
         $this->Artist = new ArrayCollection();
+        $this->reviews = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -148,6 +155,48 @@ class Tape
     public function setDescription(?string $Description): self
     {
         $this->Description = $Description;
+
+        return $this;
+    }
+
+    public function getAuthor(): ?User
+    {
+        return $this->author;
+    }
+
+    public function setAuthor(?User $author): self
+    {
+        $this->author = $author;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Review>
+     */
+    public function getReviews(): Collection
+    {
+        return $this->reviews;
+    }
+
+    public function addReview(Review $review): self
+    {
+        if (!$this->reviews->contains($review)) {
+            $this->reviews->add($review);
+            $review->setTape($this);
+        }
+
+        return $this;
+    }
+
+    public function removeReview(Review $review): self
+    {
+        if ($this->reviews->removeElement($review)) {
+            // set the owning side to null (unless already changed)
+            if ($review->getTape() === $this) {
+                $review->setTape(null);
+            }
+        }
 
         return $this;
     }
