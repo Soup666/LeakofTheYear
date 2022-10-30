@@ -8,7 +8,7 @@
     </li>
 {% endmacro %}
 
-<nav class="navbar navbar-vertical fixed-start navbar-expand-md navbar-light" id="sidebar">
+<nav class="navbar navbar-horizontal fixed-start navbar-expand-md navbar-light p-3" id="sidebar">
     <div class="container-fluid">
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#sidebarCollapse" aria-controls="sidebarCollapse" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -16,6 +16,7 @@
         <a class="navbar-brand" href="{{ path("home") }}">
             <img src="{{ asset('assets/img/logo.svg') }}" class="navbar-brand-img mx-auto" alt="Logo">
         </a>
+        <!-- Mobile -->
         <div class="navbar-user d-md-none">
             <div class="dropdown">
                 <a href="#" id="sidebarIcon" class="dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -23,26 +24,29 @@
                 </a>
 
                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="sidebarIcon">
-                    {# TODO: Add a link to change password #}
                     <a href="{{ path("users_edit", {'id': app.user.id }) }}" class="dropdown-item">Edit Profile</a>
                     <a href="{{ path("auth_logout") }}" class="dropdown-item">Logout</a>
                 </div>
             </div>
         </div>
+        <!-- Web -->
         <div class="collapse navbar-collapse" id="sidebarCollapse">
             <ul class="navbar-nav">
 
-                {{ _self.nav_link('Home', 'fe-home', 'admin') }}
-                {{ _self.nav_link('Users', 'fe-user', 'users') }}
-                {{ _self.nav_link('Tapes', 'fe-disc', 'tapes') }}
-                {{ _self.nav_link('Artists', 'fe-headphones', 'artists') }}
+                {{ _self.nav_link('Best Albums', '', 't') }}
+                {{ _self.nav_link('Discover', '', 't') }}
+                {{ _self.nav_link('New Releases', '', 't') }}
+                {{ _self.nav_link('Lists', '', 't') }}
+                {{ _self.nav_link('Genres', '', 't') }}
+                {{ _self.nav_link('News', '', 't') }}
+                {{ _self.nav_link('Community', '', 't') }}
 
             </ul>
 
             <div class="mt-auto"></div>
 
             <div class="navbar-user d-none d-md-flex" id="sidebarUser">
-                <div class="dropup">
+                <div class="dropdown">
                     <a href="#" id="sidebarIconCopy" class="dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         {{ app.user.getFullName() }}
                     </a>
