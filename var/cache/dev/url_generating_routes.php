@@ -34,6 +34,7 @@ return [
     'app_check_email' => [[], ['_controller' => 'App\\Controller\\ResetPasswordController::checkEmail'], [], [['text', '/reset-password/check-email']], [], [], []],
     'app_reset_password' => [['token'], ['token' => null, '_controller' => 'App\\Controller\\ResetPasswordController::reset'], [], [['variable', '/', '[^/]++', 'token', true], ['text', '/reset-password/reset']], [], [], []],
     'tapes' => [[], ['_controller' => 'App\\Controller\\TapeController::index'], [], [['text', '/admin/tapes/']], [], [], []],
+    'view_tape' => [['id'], ['_controller' => 'App\\Controller\\TapeController::viewTape'], [], [['variable', '/', '[^/]++', 'id', true], ['text', '/admin/tapes/view']], [], [], []],
     'tape_create' => [[], ['_controller' => 'App\\Controller\\TapeController::edit'], [], [['text', '/admin/tapes/create']], [], [], []],
     'app_tape_edit' => [[], ['_controller' => 'App\\Controller\\TapeController::edit'], [], [['text', '/admin/tapes/add']], [], [], []],
     'tape_edit' => [['id'], ['_controller' => 'App\\Controller\\TapeController::edit'], [], [['variable', '/', '[^/]++', 'id', true], ['text', '/admin/tapes/edit']], [], [], []],

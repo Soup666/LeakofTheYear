@@ -189,6 +189,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     {
         return trim($this->firstName . ' ' . $this->lastName);
     }
+    public function getInitials(): ?string {
+        return strtoupper(substr($this->firstName, 0, 1) . substr($this->lastName, 0, 1));
+    }
     /**
      * @return bool
      */

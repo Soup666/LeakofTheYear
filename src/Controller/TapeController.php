@@ -30,6 +30,15 @@ class TapeController extends AbstractController
         ]);
     }
 
+
+    #[Route('/view/{id}', name: 'view_tape')]
+    public function viewTape(Tape $tape): Response
+    {
+        return $this->render('tapes/frontend/view.html.twig', [
+            "tape" => $tape,
+        ]);
+    }
+
     #[Route('/create', name: 'tape_create')]
     #[Route('/add')]
     #[Route('/edit/{id}', name: 'tape_edit')]

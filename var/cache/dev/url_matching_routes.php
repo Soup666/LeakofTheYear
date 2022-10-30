@@ -60,20 +60,21 @@ return [
                         .'|restore/([^/]++)(*:300)'
                     .')'
                     .'|tapes/(?'
-                        .'|edit/([^/]++)(*:331)'
-                        .'|suspend/([^/]++)(*:355)'
-                        .'|unsuspend/([^/]++)(*:381)'
-                        .'|archive/([^/]++)(*:405)'
-                        .'|restore/([^/]++)(*:429)'
+                        .'|view/([^/]++)(*:331)'
+                        .'|edit/([^/]++)(*:352)'
+                        .'|suspend/([^/]++)(*:376)'
+                        .'|unsuspend/([^/]++)(*:402)'
+                        .'|archive/([^/]++)(*:426)'
+                        .'|restore/([^/]++)(*:450)'
                     .')'
                 .')'
-                .'|/reset\\-password/reset(?:/([^/]++))?(*:475)'
+                .'|/reset\\-password/reset(?:/([^/]++))?(*:496)'
                 .'|/users/(?'
-                    .'|edit/([^/]++)(*:506)'
-                    .'|suspend/([^/]++)(*:530)'
-                    .'|unsuspend/([^/]++)(*:556)'
-                    .'|archive/([^/]++)(*:580)'
-                    .'|restore/([^/]++)(*:604)'
+                    .'|edit/([^/]++)(*:527)'
+                    .'|suspend/([^/]++)(*:551)'
+                    .'|unsuspend/([^/]++)(*:577)'
+                    .'|archive/([^/]++)(*:601)'
+                    .'|restore/([^/]++)(*:625)'
                 .')'
             .')/?$}sDu',
     ],
@@ -90,17 +91,18 @@ return [
         252 => [[['_route' => 'artist_unsuspend', '_controller' => 'App\\Controller\\ArtistController::unsuspend'], ['id'], null, null, false, true, null]],
         276 => [[['_route' => 'artist_archive', '_controller' => 'App\\Controller\\ArtistController::archive'], ['id'], null, null, false, true, null]],
         300 => [[['_route' => 'artist_restore', '_controller' => 'App\\Controller\\ArtistController::restore'], ['id'], null, null, false, true, null]],
-        331 => [[['_route' => 'tape_edit', '_controller' => 'App\\Controller\\TapeController::edit'], ['id'], null, null, false, true, null]],
-        355 => [[['_route' => 'tape_suspend', '_controller' => 'App\\Controller\\TapeController::suspend'], ['id'], null, null, false, true, null]],
-        381 => [[['_route' => 'tape_unsuspend', '_controller' => 'App\\Controller\\TapeController::unsuspend'], ['id'], null, null, false, true, null]],
-        405 => [[['_route' => 'tape_archive', '_controller' => 'App\\Controller\\TapeController::archive'], ['id'], null, null, false, true, null]],
-        429 => [[['_route' => 'tape_restore', '_controller' => 'App\\Controller\\TapeController::restore'], ['id'], null, null, false, true, null]],
-        475 => [[['_route' => 'app_reset_password', 'token' => null, '_controller' => 'App\\Controller\\ResetPasswordController::reset'], ['token'], null, null, false, true, null]],
-        506 => [[['_route' => 'users_edit', '_controller' => 'App\\Controller\\UsersController::edit'], ['id'], null, null, false, true, null]],
-        530 => [[['_route' => 'users_suspend', '_controller' => 'App\\Controller\\UsersController::suspend'], ['id'], null, null, false, true, null]],
-        556 => [[['_route' => 'users_unsuspend', '_controller' => 'App\\Controller\\UsersController::unsuspend'], ['id'], null, null, false, true, null]],
-        580 => [[['_route' => 'users_archive', '_controller' => 'App\\Controller\\UsersController::archive'], ['id'], null, null, false, true, null]],
-        604 => [
+        331 => [[['_route' => 'view_tape', '_controller' => 'App\\Controller\\TapeController::viewTape'], ['id'], null, null, false, true, null]],
+        352 => [[['_route' => 'tape_edit', '_controller' => 'App\\Controller\\TapeController::edit'], ['id'], null, null, false, true, null]],
+        376 => [[['_route' => 'tape_suspend', '_controller' => 'App\\Controller\\TapeController::suspend'], ['id'], null, null, false, true, null]],
+        402 => [[['_route' => 'tape_unsuspend', '_controller' => 'App\\Controller\\TapeController::unsuspend'], ['id'], null, null, false, true, null]],
+        426 => [[['_route' => 'tape_archive', '_controller' => 'App\\Controller\\TapeController::archive'], ['id'], null, null, false, true, null]],
+        450 => [[['_route' => 'tape_restore', '_controller' => 'App\\Controller\\TapeController::restore'], ['id'], null, null, false, true, null]],
+        496 => [[['_route' => 'app_reset_password', 'token' => null, '_controller' => 'App\\Controller\\ResetPasswordController::reset'], ['token'], null, null, false, true, null]],
+        527 => [[['_route' => 'users_edit', '_controller' => 'App\\Controller\\UsersController::edit'], ['id'], null, null, false, true, null]],
+        551 => [[['_route' => 'users_suspend', '_controller' => 'App\\Controller\\UsersController::suspend'], ['id'], null, null, false, true, null]],
+        577 => [[['_route' => 'users_unsuspend', '_controller' => 'App\\Controller\\UsersController::unsuspend'], ['id'], null, null, false, true, null]],
+        601 => [[['_route' => 'users_archive', '_controller' => 'App\\Controller\\UsersController::archive'], ['id'], null, null, false, true, null]],
+        625 => [
             [['_route' => 'users_restore', '_controller' => 'App\\Controller\\UsersController::restore'], ['id'], null, null, false, true, null],
             [null, null, null, null, false, false, 0],
         ],

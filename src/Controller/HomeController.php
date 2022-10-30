@@ -2,17 +2,23 @@
 
 namespace App\Controller;
 
+use Doctrine\ORM\EntityManager;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Doctrine\Persistence\ManagerRegistry;
+use App\Entity\Tape;
 
 class HomeController extends AbstractController
 {
     #[Route('/', name: 'home')]
-    public function index(): Response
+    public function index(ManagerRegistry $em): Response
     {
+        $tapes = $em->getRepository(Tape::class)->findAll();
+
         return $this->render('home/frontend/index.html.twig', [
             'controller_name' => 'HomeController',
+            'tapes' => $tapes,
         ]);
     }    
 

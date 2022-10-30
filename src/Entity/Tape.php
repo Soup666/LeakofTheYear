@@ -79,6 +79,11 @@ class Tape
         return $this->Artist;
     }
 
+    public function getMainArtist() : ?Artist
+    {
+        return $this->Artist->first();
+    }
+
     public function addArtist(Artist $artist): self
     {
         if (!$this->Artist->contains($artist)) {

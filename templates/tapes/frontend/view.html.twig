@@ -1,0 +1,116 @@
+{% extends 'home/frontend/base.html.twig' %}
+
+{% block title %}Homepage{% endblock %}
+
+{% block header %}{% endblock %}
+
+{% block main %}
+<div class="row">
+    <div class="col-3"></div>
+    <div class="col-6">
+        <nav class="navbar navbar-horizontal navbar-expand-md">
+        <ul class="navbar-nav">
+            <li class="nav-item">
+              <a class="nav-link active" aria-current="page" href="#">Overview</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">User Reviews</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">Comments (0)</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link">Discography</a>
+            </li>
+          </ul>
+        </nav>
+
+
+        <div class="row mt-3">
+            <h2 class="text-muted"><strong>{{tape.getMainArtist.name}}</strong></h2>
+        </div>
+
+        <div class="row">
+            <h1>{{ tape.name }}</h1>
+        </div>
+
+        <div class="row">
+
+            <div class="col-4">
+                <img src="/uploads/covers/{{ tape.cover }}" width="100%" alt="cover">
+            </div>
+
+            <div class="col-4">
+                <div class="card">
+                    <div class="card-header">
+                        <h4 class="card-title">Average Score</h4>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-4">
+                                <span class="h1 badge bg-success"><strong>100</strong></span>
+                            </div>
+                            <div class="col-auto">
+                                Based on 1 Review(s)
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-4">
+                <div class="card">
+                    <div class="card-header">
+                        <h4 class="card-title">Details</h4>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col">
+                                {{ tape.ReleaseYear }} / Release Date
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <hr>
+
+        <div class="row">
+            <div class="card">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-auto">
+                            <div class="rounded-circle bg-secondary p-3 d-flex justify-content-center align-items-center" style="width: 50px; height: 50px"><span class="text-white"><strong>{{ app.user.getInitials }}</strong></span></div>
+                        </div>
+                        <div class="col-2">
+                            <div class="row">
+                                <div class="col">
+                                    {{ app.user.getFullName }}
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col">
+                                    <input type="text" class="form-control form-control-sm" placeholder="0-100">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row mt-2">
+                        <textarea name="rev_desc" id="rev_desc1" cols="30" rows="5" class="form-control" placeholder="Add a review..."></textarea>
+                    </div>
+
+                    <div class="row mt-2">
+                        <div class="col"></div>
+                        <div class="col-auto">
+                            <button class="btn btn-primary btn-sm">Post</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <div class="col-3"></div>
+</div>
+{% endblock %}

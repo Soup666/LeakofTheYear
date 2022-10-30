@@ -5,20 +5,54 @@
 {% block header %}{% endblock %}
 
 {% block main %}
-    <div class="d-flex align-items-center" style="height: 90vh">
-        <div class="container">
-            <div class="row justify-content-center">
-                <div class="col-12 col-md-5 col-xl-4 my-5">
+<div class="row">
+    <div class="col-3"></div>
+    <div class="col-auto">
+        <div class="row">
+            <div class="col-md mt-3">
 
-                    <h1 class="display-4 text-center mb-3">
-                        Congratulations!
-                    </h1>
-
-                    <p class="text-muted text-center mb-5">
-                        You've just finished setting up the boilerplate!
-                    </p>
+                <div class="title">
+                    <h4>New Releases</h3>
                 </div>
+
+                <hr>
             </div>
         </div>
+
+        <div class="row">
+            {% for t in tapes %}
+                <div class="col-4">
+                    <div class="row">
+                        <div class="col">
+                        <a href="{{ path('view_tape', {'id': t.id}) }}">
+                            <img src="/uploads/covers/{{ t.cover }}" width="100%" alt="cover">
+                        </a>
+                    </div>
+                    </div>
+
+                    <div class="row mt-3">
+                        <div class="col">
+                            <h5>{{ t.name }}</h5>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col">
+                            <span class="badge bg-secondary">{{ t.getMainArtist.name }}</span>
+                        </div>
+                    </div>
+
+                    <hr />
+
+                    <div class="row mt-3">
+                        <div class="col">
+                                <span class="badge bg-success"><strong>100</strong></span> - Average Score
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
     </div>
+    <div class="col-3"></div>
+</div>
 {% endblock %}
