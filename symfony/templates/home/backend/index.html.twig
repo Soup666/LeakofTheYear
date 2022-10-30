@@ -1,0 +1,28 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Admin{% endblock %}
+
+{% block header_title %}Admin{% endblock %}
+
+{% block header_actions %}
+{% endblock %}
+
+{% block main %}
+{% endblock %}
+
+{% block scripts %}
+    <script type="text/javascript">
+        jQuery(function ($) {
+            $("#showArchived").on("change", function () {
+                if (!$(this).is(":checked")) {
+                    $("tr.archived").hide();
+                }else {
+                    $("tr.archived").show();
+                }
+
+                $("#showArchivedIcon").toggleClass("fe-square fe-check-square");
+            });
+        });
+
+    </script>
+{% endblock %}

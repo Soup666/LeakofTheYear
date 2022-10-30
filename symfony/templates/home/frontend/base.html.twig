@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>{% block title %}{% endblock %}</title>
+
+    {# Theme JS #}
+    {% block javascript_header %}{% endblock %}
+
+    {# Theme CSS #}
+    {{ encore_entry_link_tags('app') }}
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+
+    {% block head %}{% endblock %}
+</head>
+<body>
+{% if app.user %}
+    {% include 'home/_partial/navbar.html.twig' %}
+{% endif %}
+
+{% block body %}
+    <div class="main-content">
+        {% block body_start %}{% endblock %}
+
+        <div class="container-fluid">
+            {% block header %}
+                <div class="header">
+                    <div class="header-body">
+                        <div class="row align-items-center">
+                            <div class="col">
+                                <h6 class="header-pretitle">
+                                    {% block header_pretitle %}{{ header.pretitle ?? "" }}{% endblock %}
+                                </h6>
+
+                                <h1 class="header-title">
+                                    {% block header_title %}{{ header.title ?? "" }}{% endblock %}
+                                </h1>
+                            </div>
+
+                            <div class="col-auto">
+                                {% block header_actions %}{% endblock %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% endblock %}
+
+            {% include '_partial/flash-messages.html.twig' %}
+
+            {% block main %}
+                {# Page content goes here #}
+            {% endblock %}
+        </div>
+
+        {% block body_end %}{% endblock %}
+    </div>
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+{% endblock %}
+
+{# JavaScript #}
+{{ encore_entry_script_tags('app') }}
+
+{% block scripts %}{% endblock %}
+</body>
+</html>
