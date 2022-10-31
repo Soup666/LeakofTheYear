@@ -13,3 +13,7 @@ symfony/vendor
 
 .DS_Store
 node_modules
+
+/var
+/vender
+/node_modules
