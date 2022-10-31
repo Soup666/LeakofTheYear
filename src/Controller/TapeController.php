@@ -94,6 +94,7 @@ class TapeController extends AbstractController
             $coverUrl = $form->get('coverUrl')->getData();
 
             $tags = $form->get('tags')->getData();
+            $genres = $form->get('genres')->getData();
 
             if ($tags) {
                 foreach ($tags as $tag) {
@@ -108,6 +109,22 @@ class TapeController extends AbstractController
                     }
                     
                     $tape->addTag($tagEntity);
+                }
+            }
+
+            if ($genres) {
+                foreach ($genres as $genre) {
+                    $genreEntity = $managerRegistry->getRepository(\App\Entity\Genre::class)->findOneBy([
+                        'name' => $genre,
+                    ]);
+
+                    if (!$genreEntity) {
+                        $genreEntity = new \App\Entity\Genre();
+                        $genreEntity->setName($genre);
+                        $managerRegistry->getManager()->persist($genreEntity);
+                    }
+                    
+                    $tape->addGenre($genreEntity);
                 }
             }
 

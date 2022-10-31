@@ -30,6 +30,11 @@ class TapeType extends AbstractType
             $tagNames[$tag->getId()] = $tag->getName();
         }
 
+        $genreNames = [];
+        foreach ($tape->getGenre() as $genre) {
+            $genreNames[$genre->getId()] = $genre->getName();
+        }
+
         $builder
             ->add('name', TextType::class, [
                 'attr' => [
@@ -88,6 +93,30 @@ class TapeType extends AbstractType
                     'label' => false,
                 ],
                 'data' => $tagNames,
+                'mapped' => false,
+            ])
+
+            ->add('genres', CollectionType::class, [
+                'entry_type' => TextType::class,
+                'allow_add' => true,
+                'allow_delete' => true,
+                'label' => false,
+                'required' => false,
+                'prototype' => true,
+                'prototype_options'  => [
+                    'attr' => [
+                        'class' => 'form-control form-control-sm mb-2',
+                    ],
+                    'label' => false,
+                ],
+                'entry_options' => [
+                    'attr' => [
+                        'class' => 'form-control form-control-sm mb-2',
+                        'disabled' => true,
+                    ],
+                    'label' => false,
+                ],
+                'data' => $genreNames,
                 'mapped' => false,
             ])
 
