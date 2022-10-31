@@ -62,6 +62,11 @@ class TapeType extends AbstractType
                 'choice_label' => 'name',
                 'multiple' => false,
             ])
+            ->add('format', TextType::class, [
+                'attr' => [
+                    'class' => 'form-control',
+                ]
+            ])
             ->add('cover', FileType::class, [
                 'label' => 'Cover',
                 'required' => false,
