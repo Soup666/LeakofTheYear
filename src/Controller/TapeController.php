@@ -77,7 +77,7 @@ class TapeController extends AbstractController
 
         $tape = $tape ?? new Tape();
 
-        $form = $this->createForm(TapeType::class, $tape);
+        $form = $this->createForm(TapeType::class, $tape, ['tape' => $tape]);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -92,6 +92,24 @@ class TapeController extends AbstractController
             $name = $form->get('name')->getData();
             $coverFile = $form->get('cover')->getData();
             $coverUrl = $form->get('coverUrl')->getData();
+
+            $tags = $form->get('tags')->getData();
+
+            if ($tags) {
+                foreach ($tags as $tag) {
+                    $tagEntity = $managerRegistry->getRepository(\App\Entity\Tag::class)->findOneBy([
+                        'name' => $tag,
+                    ]);
+
+                    if (!$tagEntity) {
+                        $tagEntity = new \App\Entity\Tag();
+                        $tagEntity->setName($tag);
+                        $managerRegistry->getManager()->persist($tagEntity);
+                    }
+                    
+                    $tape->addTag($tagEntity);
+                }
+            }
 
             if ($coverFile) {
                 $originalFilename = pathinfo($coverFile->getClientOriginalName(), PATHINFO_FILENAME);

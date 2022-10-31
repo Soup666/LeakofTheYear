@@ -1,3 +1,17 @@
+{% macro details_line(detail, caption) %}
+
+    <div class="row">
+        <div class="col">
+            {% if detail is defined and detail is not empty  %}
+                {{ detail }}
+            {% else %}
+                <span class="text-muted">N/A</span>
+            {% endif %}
+            <span class="text-muted"> / {{ caption }}</span>
+        </div>
+    </div>
+{% endmacro %}
+
 {% extends 'home/frontend/base.html.twig' %}
 
 {% block title %}Homepage{% endblock %}
@@ -6,8 +20,8 @@
 
 {% block main %}
 <div class="row">
-    <div class="col-3"></div>
-    <div class="col-6">
+    <div class="col-2"></div>
+    <div class="col-8">
         <nav class="navbar navbar-horizontal navbar-expand-md">
         <ul class="navbar-nav">
             <li class="nav-item">
@@ -63,11 +77,11 @@
                         <h4 class="card-title">Details</h4>
                     </div>
                     <div class="card-body">
-                        <div class="row">
-                            <div class="col">
-                                {{ tape.ReleaseYear }} / Release Date
-                            </div>
-                        </div>
+                        {{_self.details_line( tape.ReleaseDate|date('d/m/Y') , 'Release Date')}}
+                        {{_self.details_line(tape.format, 'Format')}}
+                        {{_self.details_line(tape.labelName, 'Label')}}
+                        {{_self.details_line(tape.genreNames, 'Genres')}}
+                        {{_self.details_line(tape.tagNames, 'Tags')}}
                     </div>
                 </div>
             </div>
@@ -146,6 +160,6 @@
         {% endfor %}
 
     </div>
-    <div class="col-3"></div>
+    <div class="col-2"></div>
 </div>
 {% endblock %}

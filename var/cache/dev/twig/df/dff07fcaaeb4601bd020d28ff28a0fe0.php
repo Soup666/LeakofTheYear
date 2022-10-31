@@ -236,53 +236,47 @@ class __TwigTemplate_e9e8022c939947c0049b1c40277404bd extends Template
                                     <i class=\"fe fe-edit\"></i>
                                 </a>
 
-                                ";
+                                    ";
             // line 85
-            if (((twig_get_attribute($this->env, $this->source, $context["u"], "id", [], "any", false, false, false, 85) != twig_get_attribute($this->env, $this->source, twig_get_attribute($this->env, $this->source, (isset($context["app"]) || array_key_exists("app", $context) ? $context["app"] : (function () { throw new RuntimeError('Variable "app" does not exist.', 85, $this->source); })()), "user", [], "any", false, false, false, 85), "id", [], "any", false, false, false, 85)) && ( !twig_get_attribute($this->env, $this->source, $context["u"], "hasRole", [0 => "ROLE_ADMIN"], "method", false, false, false, 85) || $this->extensions['Symfony\Bridge\Twig\Extension\SecurityExtension']->isGranted("ROLE_ADMIN")))) {
+            if (twig_get_attribute($this->env, $this->source, $context["u"], "suspended", [], "any", false, false, false, 85)) {
                 // line 86
-                echo "                                    ";
-                if (twig_get_attribute($this->env, $this->source, $context["u"], "suspended", [], "any", false, false, false, 86)) {
-                    // line 87
-                    echo "                                        <a href=\"";
-                    echo twig_escape_filter($this->env, $this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("tape_unsuspend", ["id" => twig_get_attribute($this->env, $this->source, $context["u"], "id", [], "any", false, false, false, 87)]), "html", null, true);
-                    echo "\" class=\"btn btn-sm btn-white\" data-bs-toggle=\"tooltip\" data-bs-placement=\"top\" title=\"Unsuspend user\">
+                echo "                                        <a href=\"";
+                echo twig_escape_filter($this->env, $this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("tape_unsuspend", ["id" => twig_get_attribute($this->env, $this->source, $context["u"], "id", [], "any", false, false, false, 86)]), "html", null, true);
+                echo "\" class=\"btn btn-sm btn-white\" data-bs-toggle=\"tooltip\" data-bs-placement=\"top\" title=\"Unsuspend user\">
                                             <i class=\"fe fe-play-circle\"></i>
                                         </a>
                                     ";
-                } else {
-                    // line 91
-                    echo "                                        <a href=\"";
-                    echo twig_escape_filter($this->env, $this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("tape_suspend", ["id" => twig_get_attribute($this->env, $this->source, $context["u"], "id", [], "any", false, false, false, 91)]), "html", null, true);
-                    echo "\" class=\"btn btn-sm btn-white\" data-bs-toggle=\"tooltip\" data-bs-placement=\"top\" title=\"Suspend user\">
+            } else {
+                // line 90
+                echo "                                        <a href=\"";
+                echo twig_escape_filter($this->env, $this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("tape_suspend", ["id" => twig_get_attribute($this->env, $this->source, $context["u"], "id", [], "any", false, false, false, 90)]), "html", null, true);
+                echo "\" class=\"btn btn-sm btn-white\" data-bs-toggle=\"tooltip\" data-bs-placement=\"top\" title=\"Suspend user\">
                                             <i class=\"fe fe-pause-circle\"></i>
                                         </a>
                                     ";
-                }
-                // line 95
-                echo "
+            }
+            // line 94
+            echo "
                                     ";
+            // line 95
+            if (twig_get_attribute($this->env, $this->source, $context["u"], "archived", [], "any", false, false, false, 95)) {
                 // line 96
-                if (twig_get_attribute($this->env, $this->source, $context["u"], "archived", [], "any", false, false, false, 96)) {
-                    // line 97
-                    echo "                                        <a href=\"";
-                    echo twig_escape_filter($this->env, $this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("tape_restore", ["id" => twig_get_attribute($this->env, $this->source, $context["u"], "id", [], "any", false, false, false, 97)]), "html", null, true);
-                    echo "\" class=\"btn btn-sm btn-white\" data-bs-toggle=\"tooltip\" data-bs-placement=\"top\" title=\"Restore user\">
+                echo "                                        <a href=\"";
+                echo twig_escape_filter($this->env, $this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("tape_restore", ["id" => twig_get_attribute($this->env, $this->source, $context["u"], "id", [], "any", false, false, false, 96)]), "html", null, true);
+                echo "\" class=\"btn btn-sm btn-white\" data-bs-toggle=\"tooltip\" data-bs-placement=\"top\" title=\"Restore user\">
                                             <i class=\"fe fe-arrow-left-circle\"></i>
                                         </a>
                                     ";
-                } else {
-                    // line 101
-                    echo "                                        <a href=\"";
-                    echo twig_escape_filter($this->env, $this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("tape_archive", ["id" => twig_get_attribute($this->env, $this->source, $context["u"], "id", [], "any", false, false, false, 101)]), "html", null, true);
-                    echo "\" class=\"btn btn-sm btn-white\" data-bs-toggle=\"tooltip\" data-bs-placement=\"top\" title=\"Archive user\">
+            } else {
+                // line 100
+                echo "                                        <a href=\"";
+                echo twig_escape_filter($this->env, $this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("tape_archive", ["id" => twig_get_attribute($this->env, $this->source, $context["u"], "id", [], "any", false, false, false, 100)]), "html", null, true);
+                echo "\" class=\"btn btn-sm btn-white\" data-bs-toggle=\"tooltip\" data-bs-placement=\"top\" title=\"Archive user\">
                                             <i class=\"fe fe-archive\"></i>
                                         </a>
                                     ";
-                }
-                // line 105
-                echo "                                ";
             }
-            // line 106
+            // line 104
             echo "                            </div>
                         </td>
                     </tr>
@@ -291,7 +285,7 @@ class __TwigTemplate_e9e8022c939947c0049b1c40277404bd extends Template
         $_parent = $context['_parent'];
         unset($context['_seq'], $context['_iterated'], $context['_key'], $context['u'], $context['_parent'], $context['loop']);
         $context = array_intersect_key($context, $_parent) + $_parent;
-        // line 110
+        // line 108
         echo "                </tbody>
             </table>
         </div>
@@ -299,7 +293,7 @@ class __TwigTemplate_e9e8022c939947c0049b1c40277404bd extends Template
         <div class=\"card-footer d-flex justify-content-between\">
 
             ";
-        // line 117
+        // line 115
         echo "            <ul class=\"list-pagination-prev pagination pagination-tabs card-pagination\">
                 <li class=\"page-item\">
                     <a class=\"page-link ps-0 pe-4 border-end\" href=\"#\">
@@ -309,11 +303,11 @@ class __TwigTemplate_e9e8022c939947c0049b1c40277404bd extends Template
             </ul>
 
             ";
-        // line 126
+        // line 124
         echo "            <ul class=\"list-pagination pagination pagination-tabs card-pagination\"></ul>
 
             ";
-        // line 129
+        // line 127
         echo "            <ul class=\"list-pagination-next pagination pagination-tabs card-pagination\">
                 <li class=\"page-item\">
                     <a class=\"page-link ps-4 pe-0 border-start\" href=\"#\">
@@ -323,7 +317,7 @@ class __TwigTemplate_e9e8022c939947c0049b1c40277404bd extends Template
             </ul>
 
             ";
-        // line 138
+        // line 136
         echo "            <div class=\"list-alert alert alert-dark alert-dismissible border fade\" role=\"alert\">
                 <div class=\"row align-items-center\">
                     <div class=\"col\">
@@ -348,7 +342,7 @@ class __TwigTemplate_e9e8022c939947c0049b1c40277404bd extends Template
                 </div>
 
                 ";
-        // line 162
+        // line 160
         echo "                <button type=\"button\" class=\"list-alert-close btn-close\" aria-label=\"Close\"></button>
             </div>
         </div>
@@ -362,7 +356,7 @@ class __TwigTemplate_e9e8022c939947c0049b1c40277404bd extends Template
 
     }
 
-    // line 168
+    // line 166
     public function block_scripts($context, array $blocks = [])
     {
         $macros = $this->macros;
@@ -372,7 +366,7 @@ class __TwigTemplate_e9e8022c939947c0049b1c40277404bd extends Template
         $__internal_6f47bbe9983af81f1e7450e9a3e3768f = $this->extensions["Symfony\\Bridge\\Twig\\Extension\\ProfilerExtension"];
         $__internal_6f47bbe9983af81f1e7450e9a3e3768f->enter($__internal_6f47bbe9983af81f1e7450e9a3e3768f_prof = new \Twig\Profiler\Profile($this->getTemplateName(), "block", "scripts"));
 
-        // line 169
+        // line 167
         echo "    <script type=\"text/javascript\">
         jQuery(function (\$) {
             \$(\"#showArchived\").on(\"change\", function () {
@@ -423,7 +417,7 @@ class __TwigTemplate_e9e8022c939947c0049b1c40277404bd extends Template
 
     public function getDebugInfo()
     {
-        return array (  376 => 169,  366 => 168,  352 => 162,  327 => 138,  317 => 129,  313 => 126,  303 => 117,  295 => 110,  286 => 106,  283 => 105,  275 => 101,  267 => 97,  265 => 96,  262 => 95,  254 => 91,  246 => 87,  243 => 86,  241 => 85,  234 => 81,  227 => 76,  218 => 74,  214 => 73,  206 => 68,  198 => 66,  194 => 65,  176 => 49,  162 => 37,  157 => 33,  150 => 27,  138 => 16,  133 => 12,  123 => 11,  110 => 8,  100 => 7,  81 => 5,  62 => 3,  39 => 1,);
+        return array (  370 => 167,  360 => 166,  346 => 160,  321 => 136,  311 => 127,  307 => 124,  297 => 115,  289 => 108,  280 => 104,  272 => 100,  264 => 96,  262 => 95,  259 => 94,  251 => 90,  243 => 86,  241 => 85,  234 => 81,  227 => 76,  218 => 74,  214 => 73,  206 => 68,  198 => 66,  194 => 65,  176 => 49,  162 => 37,  157 => 33,  150 => 27,  138 => 16,  133 => 12,  123 => 11,  110 => 8,  100 => 7,  81 => 5,  62 => 3,  39 => 1,);
     }
 
     public function getSourceContext()
@@ -512,7 +506,6 @@ class __TwigTemplate_e9e8022c939947c0049b1c40277404bd extends Template
                                     <i class=\"fe fe-edit\"></i>
                                 </a>
 
-                                {% if u.id != app.user.id and (not u.hasRole(\"ROLE_ADMIN\") or is_granted(\"ROLE_ADMIN\")) %}
                                     {% if u.suspended %}
                                         <a href=\"{{ path('tape_unsuspend', {'id' : u.id}) }}\" class=\"btn btn-sm btn-white\" data-bs-toggle=\"tooltip\" data-bs-placement=\"top\" title=\"Unsuspend user\">
                                             <i class=\"fe fe-play-circle\"></i>
@@ -532,7 +525,6 @@ class __TwigTemplate_e9e8022c939947c0049b1c40277404bd extends Template
                                             <i class=\"fe fe-archive\"></i>
                                         </a>
                                     {% endif %}
-                                {% endif %}
                             </div>
                         </td>
                     </tr>

@@ -5,6 +5,7 @@ namespace App\Entity;
 use App\Repository\TapeRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: TapeRepository::class)]
@@ -42,11 +43,28 @@ class Tape
     #[ORM\OneToMany(mappedBy: 'Tape', targetEntity: Review::class)]
     private Collection $reviews;
 
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $format = null;
+
+    #[ORM\ManyToOne(inversedBy: 'tapes')]
+    private ?Label $label = null;
+
+    #[ORM\Column(type: Types::DATE_MUTABLE, nullable: true)]
+    private ?\DateTimeInterface $releaseDate = null;
+
+    #[ORM\ManyToMany(targetEntity: Genre::class, inversedBy: 'tapes')]
+    private Collection $genre;
+
+    #[ORM\ManyToMany(targetEntity: Tag::class, inversedBy: 'tapes')]
+    private Collection $tag;
+
 
     public function __construct()
     {
         $this->Artist = new ArrayCollection();
         $this->reviews = new ArrayCollection();
+        $this->genre = new ArrayCollection();
+        $this->tag = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -197,6 +215,121 @@ class Tape
                 $review->setTape(null);
             }
         }
+
+        return $this;
+    }
+
+    function getAverageScore() {
+        $sum = 0;
+        foreach ($this->getReviews() as $review) {
+            $sum += $review->getScore();
+        }
+        return $sum / $this->getReviews()->count();
+    }
+
+    public function getFormat(): ?string
+    {
+        return $this->format;
+    }
+
+    public function setFormat(?string $format): self
+    {
+        $this->format = $format;
+
+        return $this;
+    }
+
+    public function getLabel(): ?Label
+    {
+        return $this->label;
+    }
+
+    public function getLabelName() : string
+    {
+        return $this->label ? $this->label->getName() : "";
+    }
+
+    public function setLabel(?Label $label): self
+    {
+        $this->label = $label;
+
+        return $this;
+    }
+
+    public function getReleaseDate(): ?\DateTimeInterface
+    {
+        return $this->releaseDate;
+    }
+
+    public function setReleaseDate(?\DateTimeInterface $releaseDate): self
+    {
+        $this->releaseDate = $releaseDate;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Genre>
+     */
+    public function getGenre(): Collection
+    {
+        return $this->genre;
+    }
+
+    public function getGenreNames() : string
+    {
+        $names = [];
+        foreach ($this->genre as $genre) {
+            $names[] = $genre->getName();
+        }
+        return implode(', ', $names);
+    }
+
+    public function addGenre(Genre $genre): self
+    {
+        if (!$this->genre->contains($genre)) {
+            $this->genre->add($genre);
+        }
+
+        return $this;
+    }
+
+    public function removeGenre(Genre $genre): self
+    {
+        $this->genre->removeElement($genre);
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Tag>
+     */
+    public function getTag(): Collection
+    {
+        return $this->tag;
+    }
+
+    public function getTagNames() : string
+    {
+        $names = [];
+        foreach ($this->tag as $tag) {
+            $names[] = $tag->getName();
+        }
+        return implode(', ', $names);
+    }
+
+    public function addTag(Tag $tag): self
+    {
+        if (!$this->tag->contains($tag)) {
+            $this->tag->add($tag);
+        }
+
+        return $this;
+    }
+
+    public function removeTag(Tag $tag): self
+    {
+        $this->tag->removeElement($tag);
 
         return $this;
     }

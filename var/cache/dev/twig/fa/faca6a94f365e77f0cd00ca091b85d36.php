@@ -297,10 +297,42 @@ class __TwigTemplate_49cd1cefe60f47358cb676210278f76f extends Template
         </div>
     </div>
 
+    <hr class=\"my-3\">
+
+    <div class=\"row mb-3\">
+        <div class=\"col-6\">
+            <div class=\"row\">
+        <div class=\"col-md\">
+            ";
+        // line 79
+        echo $this->env->getRuntime('Symfony\Component\Form\FormRenderer')->searchAndRenderBlock(twig_get_attribute($this->env, $this->source, (isset($context["form"]) || array_key_exists("form", $context) ? $context["form"] : (function () { throw new RuntimeError('Variable "form" does not exist.', 79, $this->source); })()), "tags", [], "any", false, false, false, 79), 'row');
+        echo "
+
+            <button type=\"button\"
+                class=\"add-another-collection-widget form-control form-control-sm bg-primary text-white\"
+                data-list-selector=\"#tape_tags\">Add another Tag</button>
+
+            <button type=\"button\"
+            class=\"delete-another-collection-widget form-control form-control-sm bg-danger text-white\"
+            data-list-selector=\"#tape_tags\">Delete Tag</button>
+
+    
+        </div>
+        <div class=\"col-md\">
+            <ul id=\"tags\" class=\"list-group\">
+
+            </ul>
+        </div>
+    </div>
+    </div>
+    </div>
+
+    <hr class=\"mt-3\">
+
 
     ";
-        // line 74
-        echo $this->env->getRuntime('Symfony\Component\Form\FormRenderer')->searchAndRenderBlock(twig_get_attribute($this->env, $this->source, (isset($context["form"]) || array_key_exists("form", $context) ? $context["form"] : (function () { throw new RuntimeError('Variable "form" does not exist.', 74, $this->source); })()), "_token", [], "any", false, false, false, 74), 'row');
+        // line 103
+        echo $this->env->getRuntime('Symfony\Component\Form\FormRenderer')->searchAndRenderBlock(twig_get_attribute($this->env, $this->source, (isset($context["form"]) || array_key_exists("form", $context) ? $context["form"] : (function () { throw new RuntimeError('Variable "form" does not exist.', 103, $this->source); })()), "_token", [], "any", false, false, false, 103), 'row');
         echo "
 ";
         
@@ -311,7 +343,7 @@ class __TwigTemplate_49cd1cefe60f47358cb676210278f76f extends Template
 
     }
 
-    // line 77
+    // line 106
     public function block_body_end($context, array $blocks = [])
     {
         $macros = $this->macros;
@@ -321,9 +353,9 @@ class __TwigTemplate_49cd1cefe60f47358cb676210278f76f extends Template
         $__internal_6f47bbe9983af81f1e7450e9a3e3768f = $this->extensions["Symfony\\Bridge\\Twig\\Extension\\ProfilerExtension"];
         $__internal_6f47bbe9983af81f1e7450e9a3e3768f->enter($__internal_6f47bbe9983af81f1e7450e9a3e3768f_prof = new \Twig\Profiler\Profile($this->getTemplateName(), "block", "body_end"));
 
-        // line 78
+        // line 107
         echo "    ";
-        echo         $this->env->getRuntime('Symfony\Component\Form\FormRenderer')->renderBlock((isset($context["form"]) || array_key_exists("form", $context) ? $context["form"] : (function () { throw new RuntimeError('Variable "form" does not exist.', 78, $this->source); })()), 'form_end', ["render_rest" => false]);
+        echo         $this->env->getRuntime('Symfony\Component\Form\FormRenderer')->renderBlock((isset($context["form"]) || array_key_exists("form", $context) ? $context["form"] : (function () { throw new RuntimeError('Variable "form" does not exist.', 107, $this->source); })()), 'form_end', ["render_rest" => false]);
         echo "
 ";
         
@@ -334,7 +366,7 @@ class __TwigTemplate_49cd1cefe60f47358cb676210278f76f extends Template
 
     }
 
-    // line 82
+    // line 111
     public function block_scripts($context, array $blocks = [])
     {
         $macros = $this->macros;
@@ -344,12 +376,48 @@ class __TwigTemplate_49cd1cefe60f47358cb676210278f76f extends Template
         $__internal_6f47bbe9983af81f1e7450e9a3e3768f = $this->extensions["Symfony\\Bridge\\Twig\\Extension\\ProfilerExtension"];
         $__internal_6f47bbe9983af81f1e7450e9a3e3768f->enter($__internal_6f47bbe9983af81f1e7450e9a3e3768f_prof = new \Twig\Profiler\Profile($this->getTemplateName(), "block", "scripts"));
 
-        // line 83
+        // line 112
         echo "
     <script>
         \$(document).ready(function() {
             \$('#tape_artist').select2({
                 width: '100%',
+            });
+        });
+
+        // add-collection-widget.js
+        jQuery(document).ready(function (\$) {
+            jQuery('.add-another-collection-widget').click(function (e) {
+                var list = jQuery(jQuery(this).attr('data-list-selector'));
+                // Try to find the counter of the list or use the length of the list
+                var counter = list.data('widget-counter') || list.children().length;
+
+                // grab the prototype template
+                var newWidget = list.attr('data-prototype');
+                // replace the \"__name__\" used in the id and name of the prototype
+                // with a number that's unique to your emails
+                // end name attribute looks like name=\"contact[emails][2]\"
+                newWidget = newWidget.replace(/__name__/g, counter);
+                // Increase the counter
+                counter++;
+                // And store it, the length cannot be used if deleting widgets is allowed
+                list.data('widget-counter', counter);
+
+                console.log(newWidget);
+
+                // create a new list element and add it to the list
+                var newElem = jQuery(list.attr('data-widget-tags')).html(newWidget);
+                \$('#tags').append(newWidget);
+
+                console.log(newElem);
+            });
+
+            \$('.delete-another-collection-widget').click(function(e) {
+                var list = jQuery(jQuery(this).attr('data-list-selector'));
+                var counter = list.data('widget-counter') || list.children().length;
+                counter--;
+                list.data('widget-counter', counter);
+                \$('#tags').children().last().remove();
             });
         });
     </script>
@@ -374,7 +442,7 @@ class __TwigTemplate_49cd1cefe60f47358cb676210278f76f extends Template
 
     public function getDebugInfo()
     {
-        return array (  348 => 83,  338 => 82,  325 => 78,  315 => 77,  303 => 74,  295 => 69,  291 => 68,  285 => 65,  281 => 64,  271 => 57,  267 => 56,  258 => 50,  254 => 49,  247 => 45,  243 => 44,  236 => 40,  232 => 39,  227 => 36,  220 => 31,  211 => 29,  207 => 28,  201 => 25,  194 => 21,  190 => 19,  187 => 18,  177 => 17,  165 => 14,  160 => 13,  150 => 12,  126 => 10,  107 => 9,  94 => 6,  84 => 5,  65 => 3,  42 => 1,);
+        return array (  380 => 112,  370 => 111,  357 => 107,  347 => 106,  335 => 103,  308 => 79,  295 => 69,  291 => 68,  285 => 65,  281 => 64,  271 => 57,  267 => 56,  258 => 50,  254 => 49,  247 => 45,  243 => 44,  236 => 40,  232 => 39,  227 => 36,  220 => 31,  211 => 29,  207 => 28,  201 => 25,  194 => 21,  190 => 19,  187 => 18,  177 => 17,  165 => 14,  160 => 13,  150 => 12,  126 => 10,  107 => 9,  94 => 6,  84 => 5,  65 => 3,  42 => 1,);
     }
 
     public function getSourceContext()
@@ -451,6 +519,35 @@ class __TwigTemplate_49cd1cefe60f47358cb676210278f76f extends Template
         </div>
     </div>
 
+    <hr class=\"my-3\">
+
+    <div class=\"row mb-3\">
+        <div class=\"col-6\">
+            <div class=\"row\">
+        <div class=\"col-md\">
+            {{ form_row(form.tags)}}
+
+            <button type=\"button\"
+                class=\"add-another-collection-widget form-control form-control-sm bg-primary text-white\"
+                data-list-selector=\"#tape_tags\">Add another Tag</button>
+
+            <button type=\"button\"
+            class=\"delete-another-collection-widget form-control form-control-sm bg-danger text-white\"
+            data-list-selector=\"#tape_tags\">Delete Tag</button>
+
+    
+        </div>
+        <div class=\"col-md\">
+            <ul id=\"tags\" class=\"list-group\">
+
+            </ul>
+        </div>
+    </div>
+    </div>
+    </div>
+
+    <hr class=\"mt-3\">
+
 
     {{ form_row(form._token) }}
 {% endblock %}
@@ -466,6 +563,42 @@ class __TwigTemplate_49cd1cefe60f47358cb676210278f76f extends Template
         \$(document).ready(function() {
             \$('#tape_artist').select2({
                 width: '100%',
+            });
+        });
+
+        // add-collection-widget.js
+        jQuery(document).ready(function (\$) {
+            jQuery('.add-another-collection-widget').click(function (e) {
+                var list = jQuery(jQuery(this).attr('data-list-selector'));
+                // Try to find the counter of the list or use the length of the list
+                var counter = list.data('widget-counter') || list.children().length;
+
+                // grab the prototype template
+                var newWidget = list.attr('data-prototype');
+                // replace the \"__name__\" used in the id and name of the prototype
+                // with a number that's unique to your emails
+                // end name attribute looks like name=\"contact[emails][2]\"
+                newWidget = newWidget.replace(/__name__/g, counter);
+                // Increase the counter
+                counter++;
+                // And store it, the length cannot be used if deleting widgets is allowed
+                list.data('widget-counter', counter);
+
+                console.log(newWidget);
+
+                // create a new list element and add it to the list
+                var newElem = jQuery(list.attr('data-widget-tags')).html(newWidget);
+                \$('#tags').append(newWidget);
+
+                console.log(newElem);
+            });
+
+            \$('.delete-another-collection-widget').click(function(e) {
+                var list = jQuery(jQuery(this).attr('data-list-selector'));
+                var counter = list.data('widget-counter') || list.children().length;
+                counter--;
+                list.data('widget-counter', counter);
+                \$('#tags').children().last().remove();
             });
         });
     </script>

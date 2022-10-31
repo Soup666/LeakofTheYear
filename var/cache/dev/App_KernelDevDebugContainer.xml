@@ -449,11 +449,23 @@
       <tag name="doctrine.repository_service"/>
       <argument type="service" id="doctrine"/>
     </service>
+    <service id="App\Repository\GenreRepository" class="App\Repository\GenreRepository" autowire="true" autoconfigure="true">
+      <tag name="doctrine.repository_service"/>
+      <argument type="service" id="doctrine"/>
+    </service>
+    <service id="App\Repository\LabelRepository" class="App\Repository\LabelRepository" autowire="true" autoconfigure="true">
+      <tag name="doctrine.repository_service"/>
+      <argument type="service" id="doctrine"/>
+    </service>
     <service id="App\Repository\ResetPasswordRequestRepository" class="App\Repository\ResetPasswordRequestRepository" autowire="true" autoconfigure="true">
       <tag name="doctrine.repository_service"/>
       <argument type="service" id="doctrine"/>
     </service>
     <service id="App\Repository\ReviewRepository" class="App\Repository\ReviewRepository" autowire="true" autoconfigure="true">
+      <tag name="doctrine.repository_service"/>
+      <argument type="service" id="doctrine"/>
+    </service>
+    <service id="App\Repository\TagRepository" class="App\Repository\TagRepository" autowire="true" autoconfigure="true">
       <tag name="doctrine.repository_service"/>
       <argument type="service" id="doctrine"/>
     </service>
@@ -4689,7 +4701,7 @@
       <factory class="Doctrine\ORM\EntityManager" method="create"/>
     </service>
     <service id="doctrine.orm.container_repository_factory" class="Doctrine\Bundle\DoctrineBundle\Repository\ContainerRepositoryFactory">
-      <argument type="service" id=".service_locator.f3AxiwO"/>
+      <argument type="service" id=".service_locator.6eo6ngL"/>
     </service>
     <service id="doctrine.orm.manager_configurator.abstract" class="Doctrine\Bundle\DoctrineBundle\ManagerConfigurator" abstract="true">
       <argument type="collection"/>
@@ -6033,10 +6045,16 @@
     <service id=".abstract.instanceof.App\Repository\ArtistRepository" class="App\Repository\ArtistRepository" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepositoryInterface.0.App\Repository\FileRepository" class="App\Repository\FileRepository" autowire="true" abstract="true"/>
     <service id=".abstract.instanceof.App\Repository\FileRepository" class="App\Repository\FileRepository" autowire="true" autoconfigure="true" abstract="true"/>
+    <service id=".instanceof.Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepositoryInterface.0.App\Repository\GenreRepository" class="App\Repository\GenreRepository" autowire="true" abstract="true"/>
+    <service id=".abstract.instanceof.App\Repository\GenreRepository" class="App\Repository\GenreRepository" autowire="true" autoconfigure="true" abstract="true"/>
+    <service id=".instanceof.Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepositoryInterface.0.App\Repository\LabelRepository" class="App\Repository\LabelRepository" autowire="true" abstract="true"/>
+    <service id=".abstract.instanceof.App\Repository\LabelRepository" class="App\Repository\LabelRepository" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepositoryInterface.0.App\Repository\ResetPasswordRequestRepository" class="App\Repository\ResetPasswordRequestRepository" autowire="true" abstract="true"/>
     <service id=".abstract.instanceof.App\Repository\ResetPasswordRequestRepository" class="App\Repository\ResetPasswordRequestRepository" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepositoryInterface.0.App\Repository\ReviewRepository" class="App\Repository\ReviewRepository" autowire="true" abstract="true"/>
     <service id=".abstract.instanceof.App\Repository\ReviewRepository" class="App\Repository\ReviewRepository" autowire="true" autoconfigure="true" abstract="true"/>
+    <service id=".instanceof.Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepositoryInterface.0.App\Repository\TagRepository" class="App\Repository\TagRepository" autowire="true" abstract="true"/>
+    <service id=".abstract.instanceof.App\Repository\TagRepository" class="App\Repository\TagRepository" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepositoryInterface.0.App\Repository\TapeRepository" class="App\Repository\TapeRepository" autowire="true" abstract="true"/>
     <service id=".abstract.instanceof.App\Repository\TapeRepository" class="App\Repository\TapeRepository" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepositoryInterface.0.App\Repository\UserRepository" class="App\Repository\UserRepository" autowire="true" abstract="true"/>
@@ -6785,13 +6803,16 @@
         <argument key="stof_doctrine_extensions.listener.uploadable" type="service_closure" id="stof_doctrine_extensions.listener.uploadable"/>
       </argument>
     </service>
-    <service id=".service_locator.f3AxiwO" class="Symfony\Component\DependencyInjection\ServiceLocator">
+    <service id=".service_locator.6eo6ngL" class="Symfony\Component\DependencyInjection\ServiceLocator">
       <tag name="container.service_locator"/>
       <argument type="collection">
         <argument key="App\Repository\ArtistRepository" type="service_closure" id="App\Repository\ArtistRepository"/>
         <argument key="App\Repository\FileRepository" type="service_closure" id="App\Repository\FileRepository"/>
+        <argument key="App\Repository\GenreRepository" type="service_closure" id="App\Repository\GenreRepository"/>
+        <argument key="App\Repository\LabelRepository" type="service_closure" id="App\Repository\LabelRepository"/>
         <argument key="App\Repository\ResetPasswordRequestRepository" type="service_closure" id="App\Repository\ResetPasswordRequestRepository"/>
         <argument key="App\Repository\ReviewRepository" type="service_closure" id="App\Repository\ReviewRepository"/>
+        <argument key="App\Repository\TagRepository" type="service_closure" id="App\Repository\TagRepository"/>
         <argument key="App\Repository\TapeRepository" type="service_closure" id="App\Repository\TapeRepository"/>
         <argument key="App\Repository\UserRepository" type="service_closure" id="App\Repository\UserRepository"/>
       </argument>

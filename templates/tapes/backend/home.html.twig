@@ -82,7 +82,6 @@
                                     <i class="fe fe-edit"></i>
                                 </a>
 
-                                {% if u.id != app.user.id and (not u.hasRole("ROLE_ADMIN") or is_granted("ROLE_ADMIN")) %}
                                     {% if u.suspended %}
                                         <a href="{{ path('tape_unsuspend', {'id' : u.id}) }}" class="btn btn-sm btn-white" data-bs-toggle="tooltip" data-bs-placement="top" title="Unsuspend user">
                                             <i class="fe fe-play-circle"></i>
@@ -102,7 +101,6 @@
                                             <i class="fe fe-archive"></i>
                                         </a>
                                     {% endif %}
-                                {% endif %}
                             </div>
                         </td>
                     </tr>

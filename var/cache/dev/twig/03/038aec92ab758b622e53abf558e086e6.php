@@ -125,7 +125,7 @@ class __TwigTemplate_f78efc0981ecb0124558eeaf42f05a3a extends Template
         $context['_seq'] = twig_ensure_traversable((isset($context["tapes"]) || array_key_exists("tapes", $context) ? $context["tapes"] : (function () { throw new RuntimeError('Variable "tapes" does not exist.', 23, $this->source); })()));
         foreach ($context['_seq'] as $context["_key"] => $context["t"]) {
             // line 24
-            echo "                <div class=\"col-4\">
+            echo "                <div class=\"col-2\">
                     <div class=\"row\">
                         <div class=\"col\">
                         <a href=\"";
@@ -162,7 +162,10 @@ class __TwigTemplate_f78efc0981ecb0124558eeaf42f05a3a extends Template
 
                     <div class=\"row mt-3\">
                         <div class=\"col\">
-                                <span class=\"badge bg-success\"><strong>100</strong></span> - Average Score
+                                <span class=\"badge bg-success\"><strong>";
+            // line 49
+            echo twig_escape_filter($this->env, twig_get_attribute($this->env, $this->source, $context["t"], "getAverageScore", [], "any", false, false, false, 49), "html", null, true);
+            echo "</strong></span> - Average Score
                         </div>
                     </div>
                 </div>
@@ -197,7 +200,7 @@ class __TwigTemplate_f78efc0981ecb0124558eeaf42f05a3a extends Template
 
     public function getDebugInfo()
     {
-        return array (  175 => 54,  156 => 41,  147 => 35,  137 => 28,  133 => 27,  128 => 24,  124 => 23,  107 => 8,  97 => 7,  79 => 5,  60 => 3,  37 => 1,);
+        return array (  178 => 54,  167 => 49,  156 => 41,  147 => 35,  137 => 28,  133 => 27,  128 => 24,  124 => 23,  107 => 8,  97 => 7,  79 => 5,  60 => 3,  37 => 1,);
     }
 
     public function getSourceContext()
@@ -225,7 +228,7 @@ class __TwigTemplate_f78efc0981ecb0124558eeaf42f05a3a extends Template
 
         <div class=\"row\">
             {% for t in tapes %}
-                <div class=\"col-4\">
+                <div class=\"col-2\">
                     <div class=\"row\">
                         <div class=\"col\">
                         <a href=\"{{ path('view_tape', {'id': t.id}) }}\">
@@ -250,7 +253,7 @@ class __TwigTemplate_f78efc0981ecb0124558eeaf42f05a3a extends Template
 
                     <div class=\"row mt-3\">
                         <div class=\"col\">
-                                <span class=\"badge bg-success\"><strong>100</strong></span> - Average Score
+                                <span class=\"badge bg-success\"><strong>{{ t.getAverageScore }}</strong></span> - Average Score
                         </div>
                     </div>
                 </div>

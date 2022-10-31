@@ -9,6 +9,12 @@ use Symfony\Component\Routing\Annotation\Route;
 use Doctrine\Persistence\ManagerRegistry;
 use App\Entity\Tape;
 
+
+// TODO
+// Albums overflow on main page + weird sizes (big)
+// Change logo
+// New user
+
 class HomeController extends AbstractController
 {
     #[Route('/', name: 'home')]

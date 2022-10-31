@@ -6,6 +6,7 @@ use App\Entity\Artist;
 use App\Entity\Tape;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
@@ -21,6 +22,13 @@ class TapeType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $user = $builder->getData();
+
+
+        $tape = $options['tape'];
+        $tagNames = [];
+        foreach ($tape->getTag() as $tag) {
+            $tagNames[$tag->getId()] = $tag->getName();
+        }
 
         $builder
             ->add('name', TextType::class, [
@@ -59,6 +67,30 @@ class TapeType extends AbstractType
                 ]
             ])
 
+            ->add('tags', CollectionType::class, [
+                'entry_type' => TextType::class,
+                'allow_add' => true,
+                'allow_delete' => true,
+                'label' => false,
+                'required' => false,
+                'prototype' => true,
+                'prototype_options'  => [
+                    'attr' => [
+                        'class' => 'form-control form-control-sm mb-2',
+                    ],
+                    'label' => false,
+                ],
+                'entry_options' => [
+                    'attr' => [
+                        'class' => 'form-control form-control-sm mb-2',
+                        'disabled' => true,
+                    ],
+                    'label' => false,
+                ],
+                'data' => $tagNames,
+                'mapped' => false,
+            ])
+
             ->add('save', SubmitType::class, [
                 "label" => $user ? "Update" : "Create",
                 "attr" => [
@@ -70,8 +102,10 @@ class TapeType extends AbstractType
 
     public function configureOptions(OptionsResolver $resolver): void
     {
-        $resolver->setDefaults([
+        $resolver
+        ->setDefaults([
             'data_class' => Tape::class,
-        ]);
+        ])
+        ->setRequired(['tape']);
     }
 }
