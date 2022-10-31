@@ -62,10 +62,10 @@
                     <div class="card-body">
                         <div class="row">
                             <div class="col-4">
-                                <span class="h1 badge bg-success"><strong>100</strong></span>
+                                <span class="h1 badge bg-success"><strong>{{ tape.averageScore }}</strong></span>
                             </div>
                             <div class="col-auto">
-                                Based on 1 Review(s)
+                                Based on {{ reviews | length }} Review(s)
                             </div>
                         </div>
                     </div>
@@ -130,7 +130,7 @@
         {% for r in reviews %}
         <div class="row">
             <div class="card">
-                <div class="card-header">
+                <div class="card-header my-3">
                     <div class="card-title">
                         <div class="row">
                             <div class="col-auto">

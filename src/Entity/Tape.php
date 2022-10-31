@@ -224,7 +224,7 @@ class Tape
         foreach ($this->getReviews() as $review) {
             $sum += $review->getScore();
         }
-        return $sum / $this->getReviews()->count();
+        return ceil($sum / $this->getReviews()->count());
     }
 
     public function getFormat(): ?string
