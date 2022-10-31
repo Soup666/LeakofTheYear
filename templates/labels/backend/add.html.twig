@@ -1,0 +1,46 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Label{% endblock %}
+
+{% block body_start %}
+    {{ form_start(form) }}
+{% endblock %}
+
+{% block header_title %}Label{% endblock %}
+{% block header_pretitle %}{% if updating %}Edit{% else %}Add New{% endif %} Label{% endblock %}
+
+{% block header_actions %}
+    <a href="{{ path('labels') }}" class="btn-light btn me-2">Back</a>
+    {{ form_widget(form.save) }}
+{% endblock %}
+
+{% block main %}
+    {% if updating %}
+        <div class="row mb-3">
+            <div class="col-4">
+                <img src="{{ cover }}" style="max-height: 250px; overflow: hidden;" alt="cover">
+            </div>
+            <div class="col-md">
+                <div class="row">
+                    <h1><strong>{{ label.name }}</strong></h1>
+                </div>
+            </div>
+        </div>
+        <hr>
+    {% endif %}
+
+    <div class="row mb-3">
+        <div class="col-md">
+            {{ form_label(form.name) }}
+            {{ form_widget(form.name, {'attr' : {'class' : 'form-control'}}) }}
+        </div>
+    </div>
+
+
+    {{ form_row(form._token) }}
+{% endblock %}
+
+{% block body_end %}
+    {{ form_end(form, {render_rest: false}) }}
+{% endblock %}
+

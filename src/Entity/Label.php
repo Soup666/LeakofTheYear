@@ -21,6 +21,12 @@ class Label
     #[ORM\OneToMany(mappedBy: 'label', targetEntity: Tape::class)]
     private Collection $tapes;
 
+    #[ORM\Column]
+    private ?bool $suspended = null;
+
+    #[ORM\Column]
+    private ?bool $archived = null;
+
     public function __construct()
     {
         $this->tapes = new ArrayCollection();
@@ -69,6 +75,30 @@ class Label
                 $tape->setLabel(null);
             }
         }
+
+        return $this;
+    }
+
+    public function isSuspended(): ?bool
+    {
+        return $this->suspended;
+    }
+
+    public function setSuspended(bool $suspended): self
+    {
+        $this->suspended = $suspended;
+
+        return $this;
+    }
+
+    public function isArchived(): ?bool
+    {
+        return $this->archived;
+    }
+
+    public function setArchived(bool $archived): self
+    {
+        $this->archived = $archived;
 
         return $this;
     }

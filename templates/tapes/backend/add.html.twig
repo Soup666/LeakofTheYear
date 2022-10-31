@@ -95,33 +95,31 @@
                     </ul>
                 </div>
             </div>
-        </div>
-    </div>
-
-    <hr class="my-3">
-
-    <div class="row mb-3">
-        <div class="col-6">
             <div class="row">
-        <div class="col-md">
-            {{ form_row(form.genres)}}
+                <div class="col-md">
+                    {{ form_row(form.genres)}}
 
-            <button type="button"
-                class="add-another-collection-widget form-control form-control-sm bg-primary text-white"
-                data-list-selector="#tape_genres"
-                data-list-id="genres">Add another Genre</button>
+                    <button type="button"
+                        class="add-another-collection-widget form-control form-control-sm bg-primary text-white"
+                        data-list-selector="#tape_genres"
+                        data-list-id="genres">Add another Genre</button>
 
-            <button type="button"
-            class="delete-another-collection-widget form-control form-control-sm bg-danger text-white"
-            data-list-selector="#tape_genres"
-            data-list-id="genres">Delete Tag</button>
+                    <button type="button"
+                    class="delete-another-collection-widget form-control form-control-sm bg-danger text-white"
+                    data-list-selector="#tape_genres"
+                    data-list-id="genres">Delete Tag</button>
 
-    
+                </div>
+                <div class="col-md">
+                    
+                    <ul id="genres" class="list-group">
+
+                    </ul>
+                </div>
+            </div>
         </div>
-        <div class="col-md">
-            <ul id="genres" class="list-group">
-
-            </ul>
+        <div class="col-6">
+            {{ form_row(form.label) }}
         </div>
     </div>
 
@@ -141,6 +139,9 @@
     <script>
         $(document).ready(function() {
             $('#tape_artist').select2({
+                width: '100%',
+            });
+            $('#tape_label').select2({
                 width: '100%',
             });
         });

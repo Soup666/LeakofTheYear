@@ -3,6 +3,7 @@
 namespace App\Form;
 
 use App\Entity\Artist;
+use App\Entity\Label;
 use App\Entity\Tape;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
@@ -55,6 +56,11 @@ class TapeType extends AbstractType
                 'class' => Artist::class,
                 'choice_label' => 'name',
                 'multiple' => true,
+            ])
+            ->add('label', EntityType::class, [
+                'class' => Label::class,
+                'choice_label' => 'name',
+                'multiple' => false,
             ])
             ->add('cover', FileType::class, [
                 'label' => 'Cover',
