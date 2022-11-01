@@ -128,4 +128,25 @@ class Artist
         }
         return $tapes;
     }
+
+    public function getAverageScore() {
+        $total = 0;
+        $count = 0;
+        foreach ($this->getTapes() as $tape) {
+            $score = $tape->getAverageScore();
+            if ($score != 'N/A') {
+                $total += $score;
+                $count++;
+            }
+        }
+        return $count > 0 ? $total / $count : 'N/A';
+    }
+
+    public function getReviewCount() {
+        $count = 0;
+        foreach ($this->getTapes() as $tape) {
+            $count += count($tape->getReviews());
+        }
+        return $count;
+    }
 }
