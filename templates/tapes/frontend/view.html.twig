@@ -160,6 +160,14 @@
         {% endfor %}
 
     </div>
-    <div class="col-2"></div>
+    <div class="col-2">
+        {% if geniusSearch is defined %}
+        <div class="card mt-3">
+            <div class="card-body">
+            {{ geniusSearch | raw }}
+        </div>
+        </div>
+        {% endif %}
+    </div>
 </div>
 {% endblock %}

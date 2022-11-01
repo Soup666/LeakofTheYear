@@ -7,6 +7,7 @@ use App\Entity\Review;
 use App\Entity\Tape;
 use App\Form\ReviewType;
 use App\Form\TapeType;
+use App\Service\GeniusService;
 use Doctrine\Persistence\ManagerRegistry;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Stof\DoctrineExtensionsBundle\Uploadable\UploadableManager;
@@ -34,7 +35,7 @@ class TapeController extends AbstractController
 
 
     #[Route('/view/{id}', name: 'view_tape')]
-    public function viewTape(ManagerRegistry $managerRegistry, Tape $tape, Request $request): Response
+    public function viewTape(GeniusService $genius, ManagerRegistry $managerRegistry, Tape $tape, Request $request): Response
     {
 
         $form = $this->createForm(ReviewType::class);
@@ -65,6 +66,7 @@ class TapeController extends AbstractController
             'form' => $form->createView(),
             "tape" => $tape,
             "reviews" => $reviews,
+            'geniusSearch' => $genius->searchHtml($tape->getMainArtist()->getName()),
         ]);
     }
 
