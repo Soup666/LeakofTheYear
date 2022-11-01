@@ -34,7 +34,7 @@ class GeniusService
         if (!isset($json['response']['hits'])) return null;
 
         $hits = $json['response']['hits'];
-        $html = '<div class="row"><div class="' . $colClass . '"><h2>Search results for "' . $query . '"</h2>';
+        $html = '<div class="row"><div class="' . $colClass . '"><h2>More on "' . $query . '"</h2>';
 
         foreach ($hits as $hit=>$data) {
             $data = $data['result'];

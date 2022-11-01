@@ -118,4 +118,14 @@ class Artist
     public function getFullCoverPath() {
         return '/uploads/artists/' . $this->getCover();
     }
+
+    public function getTapesByType($type) {
+        $tapes = [];
+        foreach ($this->getTapes() as $tape) {
+            if ($tape->getFormat() == $type) {
+                $tapes[] = $tape;
+            }
+        }
+        return $tapes;
+    }
 }

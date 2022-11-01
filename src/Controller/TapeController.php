@@ -19,11 +19,11 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\String\Slugger\SluggerInterface;
 
 #[IsGranted("ROLE_USER")]
-#[Route('/admin/tapes')]
+#[Route('/')]
 class TapeController extends AbstractController
 {
 
-    #[Route('/', name: 'tapes')]
+    #[Route('/admin/tape', name: 'tapes')]
     public function index(ManagerRegistry $managerRegistry): Response
     {
         $tapes = $managerRegistry->getRepository(Tape::class)->findAll();
@@ -33,46 +33,9 @@ class TapeController extends AbstractController
         ]);
     }
 
-
-    #[Route('/view/{id}', name: 'view_tape')]
-    public function viewTape(GeniusService $genius, ManagerRegistry $managerRegistry, Tape $tape, Request $request): Response
-    {
-
-        $form = $this->createForm(ReviewType::class);
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-
-            $review = new Review();
-
-            $review->setTitle('');
-            $review->setScore($form->get('score')->getData());
-            $review->setDescription($form->get('description')->getData());
-
-            $review->setTape($tape);
-            $review->setAuthor($this->getUser());
-
-            $em = $managerRegistry->getManager();
-            $em->persist($review);
-            $em->flush();
-
-        }
-
-        $reviews = $managerRegistry->getRepository(Review::class)->findBy([
-            'Tape' => $tape,
-        ]);
-
-        return $this->render('tapes/frontend/view.html.twig', [
-            'form' => $form->createView(),
-            "tape" => $tape,
-            "reviews" => $reviews,
-            'geniusSearch' => $genius->searchHtml($tape->getMainArtist()->getName()),
-        ]);
-    }
-
-    #[Route('/create', name: 'tape_create')]
-    #[Route('/add')]
-    #[Route('/edit/{id}', name: 'tape_edit')]
+    #[Route('/admin/tapes/create', name: 'tape_create')]
+    #[Route('/admin/tapes/add')]
+    #[Route('/admin/tapes/edit/{id}', name: 'tape_edit')]
     #[IsGranted("ROLE_USER")]
     public function edit(SluggerInterface $slugger, ManagerRegistry $managerRegistry, Request $request, ?Tape $tape = null): Response
     {
@@ -179,7 +142,7 @@ class TapeController extends AbstractController
         ]);
     }
 
-    #[Route('/suspend/{id}', name: 'tape_suspend')]
+    #[Route('/admin/tapes/suspend/{id}', name: 'tape_suspend')]
     #[IsGranted("ROLE_ADMIN")]
     public function suspend(ManagerRegistry $managerRegistry, Tape $tape): Response
     {
@@ -200,7 +163,7 @@ class TapeController extends AbstractController
         return $this->redirectToRoute("tapes");
     }
 
-    #[Route('/unsuspend/{id}', name: 'tape_unsuspend')]
+    #[Route('/admin/tapes/unsuspend/{id}', name: 'tape_unsuspend')]
     #[IsGranted("ROLE_ADMIN")]
     public function unsuspend(ManagerRegistry $managerRegistry, Tape $tape): Response
     {
@@ -221,7 +184,7 @@ class TapeController extends AbstractController
         return $this->redirectToRoute("tape");
     }
 
-    #[Route('/archive/{id}', name: 'tape_archive')]
+    #[Route('/admin/tapes/archive/{id}', name: 'tape_archive')]
     #[IsGranted("ROLE_ADMIN")]
     public function archive(ManagerRegistry $managerRegistry, Tape $tape): Response
     {
@@ -242,7 +205,7 @@ class TapeController extends AbstractController
         return $this->redirectToRoute("tapes");
     }
 
-    #[Route('/restore/{id}', name: 'tape_restore')]
+    #[Route('/admin/tapes/restore/{id}', name: 'tape_restore')]
     #[IsGranted("ROLE_ADMIN")]
     public function restore(ManagerRegistry $managerRegistry, Tape $tape): Response
     {
@@ -262,5 +225,47 @@ class TapeController extends AbstractController
 
 
         return $this->redirectToRoute("tapes");
+    }
+
+
+    // Frontend
+
+
+
+
+    #[Route('/tape/view/{id}', name: 'view_tape')]
+    public function viewTape(GeniusService $genius, ManagerRegistry $managerRegistry, Tape $tape, Request $request): Response
+    {
+
+        $form = $this->createForm(ReviewType::class);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            $review = new Review();
+
+            $review->setTitle('');
+            $review->setScore($form->get('score')->getData());
+            $review->setDescription($form->get('description')->getData());
+
+            $review->setTape($tape);
+            $review->setAuthor($this->getUser());
+
+            $em = $managerRegistry->getManager();
+            $em->persist($review);
+            $em->flush();
+
+        }
+
+        $reviews = $managerRegistry->getRepository(Review::class)->findBy([
+            'Tape' => $tape,
+        ]);
+
+        return $this->render('tapes/frontend/view.html.twig', [
+            'form' => $form->createView(),
+            "tape" => $tape,
+            "reviews" => $reviews,
+            'geniusSearch' => $genius->searchHtml($tape->getMainArtist()->getName()),
+        ]);
     }
 }

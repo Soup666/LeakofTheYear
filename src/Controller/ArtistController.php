@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Artist;
+use App\Entity\Tape;
 use App\Form\ArtistType;
 use Doctrine\Persistence\ManagerRegistry;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
@@ -14,11 +15,11 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\String\Slugger\SluggerInterface;
 
 #[IsGranted("ROLE_USER")]
-#[Route('/admin/artists')]
+#[Route('/')]
 class ArtistController extends AbstractController
 {
 
-    #[Route('/', name: 'artists')]
+    #[Route('/admin/artists/', name: 'artists')]
     public function index(ManagerRegistry $managerRegistry): Response
     {
         $artists = $managerRegistry->getRepository(artist::class)->findAll();
@@ -28,9 +29,9 @@ class ArtistController extends AbstractController
         ]);
     }
 
-    #[Route('/create', name: 'artist_create')]
-    #[Route('/add')]
-    #[Route('/edit/{id}', name: 'artist_edit')]
+    #[Route('/admin/artists/create', name: 'artist_create')]
+    #[Route('/admin/artists/add')]
+    #[Route('/admin/artists/edit/{id}', name: 'artist_edit')]
     #[IsGranted("ROLE_USER")]
     public function edit(SluggerInterface $slugger, ManagerRegistry $managerRegistry, Request $request, ?Artist $artist = null): Response
     {
@@ -101,7 +102,7 @@ class ArtistController extends AbstractController
         ]);
     }
 
-    #[Route('/suspend/{id}', name: 'artist_suspend')]
+    #[Route('/admin/artists/suspend/{id}', name: 'artist_suspend')]
     #[IsGranted("ROLE_ADMIN")]
     public function suspend(ManagerRegistry $managerRegistry, Artist $artist): Response
     {
@@ -122,7 +123,7 @@ class ArtistController extends AbstractController
         return $this->redirectToRoute("artists");
     }
 
-    #[Route('/unsuspend/{id}', name: 'artist_unsuspend')]
+    #[Route('/admin/artists/unsuspend/{id}', name: 'artist_unsuspend')]
     #[IsGranted("ROLE_ADMIN")]
     public function unsuspend(ManagerRegistry $managerRegistry, Artist $artist): Response
     {
@@ -143,7 +144,7 @@ class ArtistController extends AbstractController
         return $this->redirectToRoute("artist");
     }
 
-    #[Route('/archive/{id}', name: 'artist_archive')]
+    #[Route('/admin/artists/archive/{id}', name: 'artist_archive')]
     #[IsGranted("ROLE_ADMIN")]
     public function archive(ManagerRegistry $managerRegistry, Artist $artist): Response
     {
@@ -164,7 +165,7 @@ class ArtistController extends AbstractController
         return $this->redirectToRoute("artists");
     }
 
-    #[Route('/restore/{id}', name: 'artist_restore')]
+    #[Route('/admin/artists/restore/{id}', name: 'artist_restore')]
     #[IsGranted("ROLE_ADMIN")]
     public function restore(ManagerRegistry $managerRegistry, Artist $artist): Response
     {
@@ -184,5 +185,19 @@ class ArtistController extends AbstractController
 
 
         return $this->redirectToRoute("artists");
+    }
+
+
+    // Frontend
+
+    #[Route('/artist/{id}', name: 'view_artist')]
+    public function viewArtist(ManagerRegistry $managerRegistry, Artist $artist): Response
+    {
+        $albums = $artist->getTapes();
+
+        return $this->render('artists/frontend/view.html.twig', [
+            "artist" => $artist,
+            "tapes" => $albums,
+        ]);
     }
 }

@@ -41,7 +41,7 @@
 
 
         <div class="row mt-3">
-            <h2 class="text-muted"><strong>{{tape.getMainArtist.name}}</strong></h2>
+            <h2 class="text-muted"><a href="{{ path('view_artist', {'id': tape.getMainArtist.id}) }}"><strong>{{tape.getMainArtist.name}}</strong></a></h2>
         </div>
 
         <div class="row">
