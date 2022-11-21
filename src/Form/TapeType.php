@@ -57,6 +57,12 @@ class TapeType extends AbstractType
                 'choice_label' => 'name',
                 'multiple' => true,
             ])
+            ->add('associate', EntityType::class, [
+                'class' => Tape::class,
+                'choice_label' => 'name',
+                'multiple' => true,
+                'required' => false,
+            ])
             ->add('label', EntityType::class, [
                 'class' => Label::class,
                 'choice_label' => 'name',

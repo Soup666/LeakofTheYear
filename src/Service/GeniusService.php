@@ -15,7 +15,6 @@ class GeniusService
      */
     public function __construct()
     {
-
         if (!isset($_ENV['GENIUS_TOKEN'])) {
             throw new Warning('No Genius API key provided');
         }

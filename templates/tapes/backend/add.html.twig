@@ -126,6 +126,14 @@
 
     <hr class="mt-3">
 
+    <div class="row">
+        <div class="col">
+            {{ form_row(form.associate) }}
+        </div>
+    </div>
+
+    <hr class="mt-3">
+
 
     {{ form_row(form._token) }}
 {% endblock %}
@@ -143,6 +151,9 @@
                 width: '100%',
             });
             $('#tape_label').select2({
+                width: '100%',
+            });
+            $('#tape_associate').select2({
                 width: '100%',
             });
         });

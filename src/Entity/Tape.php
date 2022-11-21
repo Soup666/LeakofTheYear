@@ -58,6 +58,12 @@ class Tape
     #[ORM\ManyToMany(targetEntity: Tag::class, inversedBy: 'tapes')]
     private Collection $tag;
 
+    #[ORM\ManyToMany(targetEntity: self::class, inversedBy: 'tapes')]
+    private Collection $Associate;
+
+    #[ORM\ManyToMany(targetEntity: self::class, mappedBy: 'Associate')]
+    private Collection $tapes;
+
 
     public function __construct()
     {
@@ -65,6 +71,8 @@ class Tape
         $this->reviews = new ArrayCollection();
         $this->genre = new ArrayCollection();
         $this->tag = new ArrayCollection();
+        $this->Associate = new ArrayCollection();
+        $this->tapes = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -332,5 +340,60 @@ class Tape
         $this->tag->removeElement($tag);
 
         return $this;
+    }
+
+    /**
+     * @return Collection<int, self>
+     */
+    public function getAssociate(): Collection
+    {
+        return $this->Associate;
+    }
+
+    public function addAssociate(self $associate): self
+    {
+        if (!$this->Associate->contains($associate)) {
+            $this->Associate->add($associate);
+        }
+
+        return $this;
+    }
+
+    public function removeAssociate(self $associate): self
+    {
+        $this->Associate->removeElement($associate);
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, self>
+     */
+    public function getTapes(): Collection
+    {
+        return $this->tapes;
+    }
+
+    public function addTape(self $tape): self
+    {
+        if (!$this->tapes->contains($tape)) {
+            $this->tapes->add($tape);
+            $tape->addAssociate($this);
+        }
+
+        return $this;
+    }
+
+    public function removeTape(self $tape): self
+    {
+        if ($this->tapes->removeElement($tape)) {
+            $tape->removeAssociate($this);
+        }
+
+        return $this;
+    }
+
+    public function isAssociate() : bool {
+        return $this->getTapes()->count() > 0;
     }
 }

@@ -22,6 +22,10 @@ class HomeController extends AbstractController
     {
         $tapes = $em->getRepository(Tape::class)->findAll();
 
+        $tapes = array_filter($tapes, function($tape) {
+            return !$tape->isAssociate();
+        });
+
         return $this->render('home/frontend/index.html.twig', [
             'controller_name' => 'HomeController',
             'tapes' => $tapes,

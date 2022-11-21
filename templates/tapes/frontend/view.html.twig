@@ -54,36 +54,61 @@
                 <img src="/uploads/covers/{{ tape.cover }}" width="100%" alt="cover">
             </div>
 
-            <div class="col-4">
-                <div class="card">
-                    <div class="card-header">
-                        <h4 class="card-title">Average Score</h4>
-                    </div>
-                    <div class="card-body">
-                        <div class="row">
-                            <div class="col-4">
-                                <span class="h1 badge bg-success"><strong>{{ tape.averageScore }}</strong></span>
+            <div class="col">
+                <div class="row">
+                    <div class="col-6">
+                        <div class="card">
+                            <div class="card-header">
+                                <h4 class="card-title">Average Score</h4>
                             </div>
-                            <div class="col-auto">
-                                Based on {{ reviews | length }} Review(s)
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-4">
+                                        <span class="h1 badge bg-success"><strong>{{ tape.averageScore }}</strong></span>
+                                    </div>
+                                    <div class="col-auto">
+                                        Based on {{ reviews | length }} Review(s)
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="card">
+                            <div class="card-header">
+                                <h4 class="card-title">Details</h4>
+                            </div>
+                            <div class="card-body">
+                                {{_self.details_line( tape.ReleaseDate|date('d/m/Y') , 'Release Date')}}
+                                {{_self.details_line(tape.format, 'Format')}}
+                                {{_self.details_line(tape.labelName, 'Label')}}
+                                {{_self.details_line(tape.genreNames, 'Genres')}}
+                                {{_self.details_line(tape.tagNames, 'Tags')}}
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="col-4">
-                <div class="card">
-                    <div class="card-header">
-                        <h4 class="card-title">Details</h4>
-                    </div>
-                    <div class="card-body">
-                        {{_self.details_line( tape.ReleaseDate|date('d/m/Y') , 'Release Date')}}
-                        {{_self.details_line(tape.format, 'Format')}}
-                        {{_self.details_line(tape.labelName, 'Label')}}
-                        {{_self.details_line(tape.genreNames, 'Genres')}}
-                        {{_self.details_line(tape.tagNames, 'Tags')}}
+                {% if tape.associate|length > 0 %}
+                <div class="row">
+                    <div class="col">
+                        <h4 class="text-muted">Other Versions...</h4>
+                        <hr>
                     </div>
                 </div>
+                <div class="row">
+                    {% for a in tape.associate %}
+                        <div class="col-3">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h4 class="card-header-title" class="mb-2">{{ a.name }}</h4>
+                                    <span class="text-muted">{{ a.releaseDate|date('d/m/Y') }}</span>
+                                    <a href="{{ path('view_tape', {'id': a.id}) }}" class="hidden stretched-link"></a>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+                {% endif %}
             </div>
         </div>
 
