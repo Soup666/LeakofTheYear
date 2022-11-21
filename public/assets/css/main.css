@@ -1,9 +1,0 @@
-.l-profile-pic{
-    position:relative;
-    overflow:hidden;
-    padding-bottom:100%;
-}
-.l-profile-pic img{
-    position:absolute;
-    width: 100%;
-}

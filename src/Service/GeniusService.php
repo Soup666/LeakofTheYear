@@ -2,10 +2,30 @@
 
 namespace App\Service;
 
+use Exception;
+use PHPUnit\Framework\Warning;
+
+
 class GeniusService
 {
+    private string $apiKey = '';
+
+    /**
+     * @throws Exception
+     */
+    public function __construct()
+    {
+
+        if (!isset($_ENV['GENIUS_TOKEN'])) {
+            throw new Warning('No Genius API key provided');
+        }
+        else {
+            $this->apiKey = $_ENV['GENIUS_TOKEN'];
+        }
+    }
+
     public function getAlbum(int $id) {
-        $url = 'https://api.genius.com/albums/' . $id . '?access_token=' . $_ENV['GENIUS_TOKEN'];
+        $url = 'https://api.genius.com/albums/' . $id . '?access_token=' . $this->apiKey;
         $curl = curl_init();
         curl_setopt($curl, CURLOPT_URL, $url);
         curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
@@ -18,7 +38,7 @@ class GeniusService
     public function searchJson(string $query) {
         $query = urlencode($query);
         dump($query);
-        $url = 'https://api.genius.com/search?q=' . $query . '&access_token=' . $_ENV['GENIUS_TOKEN'];
+        $url = 'https://api.genius.com/search?q=' . $query . '&access_token=' . $this->apiKey;
         $curl = curl_init();
         curl_setopt($curl, CURLOPT_URL, $url);
         curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
@@ -47,5 +67,5 @@ class GeniusService
         return $html;
 
     }
-    
+
 }
