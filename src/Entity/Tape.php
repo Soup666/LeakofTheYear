@@ -64,6 +64,9 @@ class Tape
     #[ORM\ManyToMany(targetEntity: self::class, mappedBy: 'Associate')]
     private Collection $tapes;
 
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $audioFile = null;
+
 
     public function __construct()
     {
@@ -395,5 +398,17 @@ class Tape
 
     public function isAssociate() : bool {
         return $this->getTapes()->count() > 0;
+    }
+
+    public function getAudioFile(): ?string
+    {
+        return $this->audioFile;
+    }
+
+    public function setAudioFile(?string $audioFile): self
+    {
+        $this->audioFile = $audioFile;
+
+        return $this;
     }
 }

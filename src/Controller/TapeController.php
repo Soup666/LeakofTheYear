@@ -7,6 +7,7 @@ use App\Entity\Review;
 use App\Entity\Tape;
 use App\Form\ReviewType;
 use App\Form\TapeType;
+use App\Service\FileUploader;
 use App\Service\GeniusService;
 use Doctrine\Persistence\ManagerRegistry;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
@@ -37,7 +38,7 @@ class TapeController extends AbstractController
     #[Route('/admin/tapes/add')]
     #[Route('/admin/tapes/edit/{id}', name: 'tape_edit')]
     #[IsGranted("ROLE_USER")]
-    public function edit(SluggerInterface $slugger, ManagerRegistry $managerRegistry, Request $request, ?Tape $tape = null): Response
+    public function edit(SluggerInterface $slugger, FileUploader $fileUploader, ManagerRegistry $managerRegistry, Request $request, ?Tape $tape = null): Response
     {
 
         $tape = $tape ?? new Tape();
@@ -60,6 +61,8 @@ class TapeController extends AbstractController
 
             $tags = $form->get('tags')->getData();
             $genres = $form->get('genres')->getData();
+
+            $audioFile = $form->get('audioFile')->getData();
 
             if ($tags) {
                 foreach ($tags as $tag) {
@@ -121,6 +124,11 @@ class TapeController extends AbstractController
 
                 $tape->setCover($filename);
 
+            }
+
+            if ($audioFile) {
+                $name = $fileUploader->upload($audioFile);
+                $tape->setAudioFile($name);
             }
 
             $em = $managerRegistry->getManager();

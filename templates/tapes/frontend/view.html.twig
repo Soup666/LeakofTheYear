@@ -19,6 +19,7 @@
 {% block header %}{% endblock %}
 
 {% block main %}
+    <link rel="stylesheet" href="https://cdn.plyr.io/3.7.3/plyr.css" />
 <div class="row">
     <div class="col-2"></div>
     <div class="col-8">
@@ -112,6 +113,14 @@
             </div>
         </div>
 
+        {% if tape.audioFile is defined and tape.audioFile is not null %}
+        <div class="row mt-3">
+            <audio crossorigin playsinline>
+                <source src="/uploads/audio/{{ tape.audioFile }}" type="audio/mpeg">
+            </audio>
+        </div>
+        {% endif %}
+
         <hr>
 
         {{ form_start(form) }}
@@ -195,4 +204,12 @@
         {% endif %}
     </div>
 </div>
+    <script src="https://cdn.plyr.io/3.7.3/plyr.js"></script>
+{% endblock %}
+
+{% block scripts %}
+    <script>
+        const player = new Plyr('audio', {});
+    </script>
+
 {% endblock %}
