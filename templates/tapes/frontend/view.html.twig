@@ -52,7 +52,11 @@
         <div class="row">
 
             <div class="col-4">
+                {% if tape.cover is defined and tape.cover is not null %}
                 <img src="/uploads/covers/{{ tape.cover }}" width="100%" alt="cover">
+                {% else %}
+                <img src="/uploads/covers/{{ tape.getAssociateCover }}" width="100%" alt="cover">
+                {% endif %}
             </div>
 
             <div class="col">

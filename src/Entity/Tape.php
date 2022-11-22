@@ -400,6 +400,10 @@ class Tape
         return $this->getTapes()->count() > 0;
     }
 
+    public function getAssociateCover() : ?string {
+        return $this->getTapes()->first()->getCover();
+    }
+
     public function getAudioFile(): ?string
     {
         return $this->audioFile;
