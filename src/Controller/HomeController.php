@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Service\TapeService;
 use Doctrine\ORM\EntityManager;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -17,20 +18,31 @@ use App\Entity\Tape;
 
 class HomeController extends AbstractController
 {
-    #[Route('/', name: 'home')]
-    public function index(ManagerRegistry $em): Response
+    private TapeService $tapeService;
+    private ManagerRegistry $em;
+
+    public function __construct(TapeService $tapeService, ManagerRegistry $em)
     {
-        $tapes = $em->getRepository(Tape::class)->findAll();
+        $this->tapeService = $tapeService;
+        $this->em = $em;
+    }
 
-        $tapes = array_filter($tapes, function($tape) {
-            return !$tape->isAssociate();
-        });
-
+    #[Route('/', name: 'home')]
+    public function index(): Response
+    {
         return $this->render('home/frontend/index.html.twig', [
             'controller_name' => 'HomeController',
-            'tapes' => $tapes,
+            'tapes' => $this->tapeService->getTapes(),
         ]);
-    }    
+    }
+
+    #[Route('/top-leaks', name: 'top_leaks')]
+    public function top_leaks(): Response
+    {
+        return $this->render('home/frontend/top_leaks.html.twig', [
+            'leaks' => $this->tapeService->getTopLeaks(),
+        ]);
+    }
 
 
     #[Route('/', name: 't')]

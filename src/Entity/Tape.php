@@ -181,6 +181,11 @@ class Tape
         return $this->Description;
     }
 
+    public function getDescriptionShort(): ?string
+    {
+        return substr($this->Description, 0, 200) . '...';
+    }
+
     public function setDescription(?string $Description): self
     {
         $this->Description = $Description;

@@ -1,0 +1,44 @@
+{% extends 'home/frontend/base.html.twig' %}
+
+{% block title %}Top Leaks{% endblock %}
+
+{% block header %}{% endblock %}
+
+{% block main %}
+
+    <div class="row">
+        <div class="col-3"></div>
+        <div class="col">
+            <div class="row">
+                <div class="col-md mt-3">
+
+                    <div class="title">
+                        <h4>Top Rated Leaks</h4>
+                    </div>
+
+                    <hr>
+
+                    {% for leak in leaks %}
+                        <div class="row">
+                            <div class="col-md-2">
+                                <img src="/uploads/covers/{{ leak.cover }}" alt="leak image" class="img-fluid">
+                            </div>
+                            <div class="col-md-8">
+                                <h5>{{ leak.name }}</h5>
+                                <span>{{ leak.getDescriptionShort }}</span>
+                                <p><a href="{{ path('view_tape', {'id': leak.id}) }}">Listen now</a></p>
+                            </div>
+                            <div class="col-md-2 text-center">
+
+                                <span class="h1 badge bg-success">{{ leak.getAverageScore }}</span>
+                            </div>
+                        </div>
+                        <hr>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+        <div class="col-3"></div>
+    </div>
+
+{% endblock %}
