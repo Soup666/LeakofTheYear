@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Service\FTPService;
 use App\Service\TapeService;
 use Doctrine\ORM\EntityManager;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -28,8 +29,10 @@ class HomeController extends AbstractController
     }
 
     #[Route('/', name: 'home')]
-    public function index(): Response
+    public function index(FTPService $FTPService): Response
     {
+
+        dd($FTPService->test());
         return $this->render('home/frontend/index.html.twig', [
             'controller_name' => 'HomeController',
             'tapes' => $this->tapeService->getTapes(),
